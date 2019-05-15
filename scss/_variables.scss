@@ -1,0 +1,9 @@
+$primary-color: rgb(0, 100, 0);
+$seconday-color: #070707;
+
+@mixin blackops($font-size, $font-color, $letter-spacing) {
+  font-family: 'Black Ops One', sans-serif;
+  font-size: $font-size;
+  letter-spacing: $letter-spacing;
+  color: $font-color;
+}

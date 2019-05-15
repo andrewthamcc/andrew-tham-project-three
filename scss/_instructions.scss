@@ -1,0 +1,64 @@
+.instructions {
+  padding: 2rem 0;
+  height: 100vh;
+
+  background-image: url('../assets/cards.png');
+  background-repeat: no-repeat;
+  background-size: 20%;
+  background-position-y: 100%;
+  background-position-x: 100%;
+
+  &-flex-container {
+    display: flex;
+  }
+
+  &-image {
+    flex-basis: 40%;
+    width: 35%;
+  }
+
+  &-text {
+    flex-basis: 65%;
+    width: 60%;
+    padding-left: 1rem;
+
+    font-size: 1.3rem;
+    line-height: 1.6;
+  
+    &-fun {
+      display: block;
+    }
+
+    &-plain {
+      display: none;
+    }
+  }
+
+  &-show {
+    display: block;
+  }
+
+  &-hide {
+    display: none;
+  }
+
+  &-button {
+    background: $primary-color;
+    color: #ffffff;
+    font-family: "Black Ops One", sans-serif;
+    margin-top: 1rem;
+    padding: 0.3rem 0.5rem;
+    border-radius: 1rem;
+  }
+
+  // styles for the rules list
+  &-rules-list {
+    width: 80%;
+    padding-left: 1.5rem;
+  }
+}
+
+.computer-name {
+  font-weight: 700;
+  color: red;
+}

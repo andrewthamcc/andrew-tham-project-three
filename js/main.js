@@ -1,3 +1,4 @@
+// war app object
 const warApp = {
   deck: [],
   deckSuits: ['SPADES', 'DIAMONDS', 'CLUBS', 'HEARTS'],
@@ -6,17 +7,61 @@ const warApp = {
   // instantiate an empty array for when war is declared
   warCardPile: [],
 
+  player: {
+    name: '',
+    score: 0
+  },
+
   // an array of possible computer names that the player will face at random
-  computerName: ['General Harry Hearts', 'Colonel Amy Aces', 'Admiral Denise Diamonds', 'Sergeant Spike Spades']
+  computer: {
+    possibleNames: ['General Harry Hearts', 'Colonel Amy Aces', 'Admiral Denise Diamonds', 'Sergeant Spike Spades']
+  }
 };
 
 // init function for war app
 warApp.init = () => {
+  warApp.playerName();
+  warApp.computerName();
+  warApp.toggleRules();
   warApp.buildDeck();
   warApp.shuffleDeck();
   warApp.dealCards();
   warApp.playCard();
 }
+
+// gets player name from input field
+warApp.playerName = () => {
+  $('#header-about-form').on('submit', function(e){
+    warApp.player.name = $('#header-about-form-input-name').val()
+
+    // update UI in instructions
+    $('#player-name').html(warApp.player.name);
+
+    e.preventDefault();
+  });
+};
+
+// gets random computer name
+warApp.computerName = () => {
+  warApp.computer.name = warApp.computer.possibleNames[Math.floor(Math.random() * warApp.computer.possibleNames.length)];
+
+  // update UI with computer name
+  $('#computer-name').html(warApp.computer.name);
+};
+
+// toggles the rules and button text
+warApp.toggleRules = () => {
+  $('#instructions-button').on('click', function(e){
+    
+    $('.instructions-text-fun').toggleClass('instructions-hide');
+    $('.instructions-text-plain').toggleClass('instructions-show');
+
+    $(this).text(function (index, current) {
+      return (current === 'Read Standard Rules') ? 'Read Fun Rules' : 'Read Standard Rules';
+    })
+
+  });
+};
 
 // https://www.thatsoftwaredude.com/content/6196/coding-a-card-deck-in-javascript
 // build the deck from the cards in order by looping through each array and matchig up items
@@ -34,24 +79,25 @@ warApp.buildDeck = () => {
       warApp.deck.push(card);
     });
   });
-}
+};
 
 // function that randomizes the deck by changing location of array items
 warApp.shuffleDeck = () => {
+  // I know this can be done in a for loop but we were told there were few aspects to use a while loop.  This is a practical example of when one can be used.
   let shuffleCount = 0;
   while(shuffleCount < 500) {
     // gets two random cards from the deck
-    let locationOne = Math.floor(Math.random() * warApp.deck.length);
-    let locationTwo = Math.floor(Math.random() * warApp.deck.length);
-    let tempLocation = warApp.deck[locationOne];  
+    let locationOne = Math.floor(Math.random() * warApp.deck.length),
+        locationTwo = Math.floor(Math.random() * warApp.deck.length),
+        tempLocation = warApp.deck[locationOne];  
     
     // switch the locations of cards in the deck
     warApp.deck[locationOne] = warApp.deck[locationTwo];
     warApp.deck[locationTwo] = tempLocation;
 
     shuffleCount++;
-  }
-}
+  };
+};
 
 // deal the cards by splicing the now shuffled deck array into two arrays
 warApp.dealCards = () => {
@@ -61,21 +107,21 @@ warApp.dealCards = () => {
   // instantiates the intial count of cards for both players
   warApp.playerCardCount = warApp.playerCardPile.length;
   warApp.computerCardCount = warApp.computerCardPile.length;
-}
+};
 
 // battle function when playing cards
 warApp.battle = () => {
   // play a user card
-  const playerBattleCard = warApp.playerCardPile.shift();
-  const computerBattleCard = warApp.computerCardPile.shift();
+  const playerBattleCard = warApp.playerCardPile.shift(),
+        computerBattleCard = warApp.computerCardPile.shift();
 
-  // // get the values of each card
-  const playerBattleValue = playerBattleCard.value;
-  const computerBattleValue = computerBattleCard.value;
+  // get the values of each card
+  const playerBattleValue = playerBattleCard.value,
+        computerBattleValue = computerBattleCard.value;
 
   // get the images of each card
-  const playerBattleImage = playerBattleCard.image;
-  const computerBattleImage = computerBattleCard.image;
+  const playerBattleImage = playerBattleCard.image,
+        computerBattleImage = computerBattleCard.image;
 
   console.log(`Player draws:`, playerBattleValue); 
   console.log(`Computer draws:`, computerBattleValue);
@@ -88,13 +134,22 @@ warApp.battle = () => {
     warApp.playerCardPile = warApp.playerCardPile.concat([playerBattleCard, computerBattleCard]);
     
     // adds the war cards to the players pile and clears the war card pile array
-    warApp.playerCardPile = warApp.playerCardPile.concat(warApp.warCardPile);
-    warApp.warCardPile = [];
+    if (warApp.warCardPile.length > 0) {
+      warApp.playerCardPile = warApp.playerCardPile.concat(warApp.warCardPile);
+      warApp.warCardPile = [];
 
-    warApp.playerCardCount = warApp.playerCardPile.length
+      // adds a score when the player wins a round of war
+      warApp.player.score =+ 100;
+    }
+
+    // adds to the player's score based on the cards the player collects
+    warApp.player.score += computerBattleValue;
+
+    // only adds the war card pile if there is something in it
+    warApp.playerCardCount = warApp.playerCardPile.length;
     warApp.computerCardCount = warApp.computerCardPile.length;
 
-    console.log(`Player has ${warApp.playerCardPile.length} cards`)
+    console.log(`Player has ${warApp.playerCardPile.length} cards.  Player score: ${warApp.player.score}`)
 
   } else if (playerBattleValue < computerBattleValue) {
     console.log('lose');
@@ -104,10 +159,12 @@ warApp.battle = () => {
    
     warApp.computerCardPile = warApp.computerCardPile.concat(warApp.warCardPile);
     warApp.warCardPile = [];
-  
-
-    warApp.playerCardCount = warApp.playerCardPile.length
-    warApp.computerCardCount = warApp.computerCardPile.length;
+    
+    // only adds the war card pile if there is something in it
+    if (warApp.warCardPile.length > 0) {
+      warApp.playerCardCount = warApp.playerCardPile.length
+      warApp.computerCardCount = warApp.computerCardPile.length;
+    }
 
     console.log(`Player has ${warApp.playerCardPile.length} cards`)
   
@@ -119,8 +176,8 @@ warApp.battle = () => {
     warApp.warCardPile.push(computerBattleCard);
 
     // splices off three cards off of each player and computer pile
-    const playerRemoved = warApp.playerCardPile.splice(0, 3);
-    const computerRemoved = warApp.computerCardPile.splice(0, 3);
+    const playerRemoved = warApp.playerCardPile.splice(0, 3),
+          computerRemoved = warApp.computerCardPile.splice(0, 3);
 
     // pushes the extra cards from either player/computer onto a war pile that either will win
     warApp.warCardPile = warApp.warCardPile.concat(playerRemoved, computerRemoved);
@@ -129,17 +186,26 @@ warApp.battle = () => {
 
     // goes to battle again
     warApp.battle();
-  }
+  };
+};
+
+// determine if the player or computer has won
+warApp.determineWin = () => {
+  if (warApp.playerCardCount >= 36) {
+    console.log('YOU ARE VICTORIOUS')
+  } else if (warApp.playerCardCount <= 26) {
+    console.log('Your forces have been depleted. They have won the war...')
+  };
 };
 
 warApp.playCard = () => {
-  $('button').on('click', function (e) {
+  $('#playACard').on('click', function (e) {
     warApp.battle();
 
     // prevent the default behaviour
     e.preventDefault();
   });
-}
+};
 
 // document ready
 $(function () {
