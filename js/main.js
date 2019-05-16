@@ -1,4 +1,4 @@
-// war app object
+// instantiate war app object
 const warApp = {
   deck: [],
   deckSuits: ['SPADES', 'DIAMONDS', 'CLUBS', 'HEARTS'],
@@ -7,13 +7,14 @@ const warApp = {
   // instantiate an empty array for when war is declared
   warCardPile: [],
 
+  // player information
   player: {
     name: '',
     score: 0
   },
 
-  // an array of possible computer names that the player will face at random
   computer: {
+    // an array of possible computer names that the player will face at random
     possibleNames: ['General Harry Hearts', 'Colonel Amy Aces', 'Admiral Denise Diamonds', 'Sergeant Spike Spades']
   }
 };
@@ -27,6 +28,9 @@ warApp.init = () => {
   warApp.shuffleDeck();
   warApp.dealCards();
   warApp.playCard();
+  warApp.cardCount();
+  warApp.playerScore();
+  warApp.determineWin();
 }
 
 // gets player name from input field
@@ -35,8 +39,8 @@ warApp.playerName = () => {
     warApp.player.name = $('#header-about-form-input-name').val()
 
     // update UI in instructions
-    $('#player-name').html(warApp.player.name);
-
+    $('#instructions-player-name').html(warApp.player.name);
+    $('#play-player-name').html(warApp.player.name);
     e.preventDefault();
   });
 };
@@ -46,7 +50,8 @@ warApp.computerName = () => {
   warApp.computer.name = warApp.computer.possibleNames[Math.floor(Math.random() * warApp.computer.possibleNames.length)];
 
   // update UI with computer name
-  $('#computer-name').html(warApp.computer.name);
+  $('#instructions-computer-name').html(warApp.computer.name);
+  $('#play-computer-name').html(warApp.computer.name);
 };
 
 // toggles the rules and button text
@@ -104,10 +109,31 @@ warApp.dealCards = () => {
   warApp.playerCardPile = warApp.deck.splice(0, 26)
   warApp.computerCardPile = warApp.deck;
 
-  // instantiates the intial count of cards for both players
+  // count the cards
+  warApp.cardCount();
+};
+
+// updates UI for card count
+warApp.cardCount = () => {
+  // count the number of cards for both players
   warApp.playerCardCount = warApp.playerCardPile.length;
   warApp.computerCardCount = warApp.computerCardPile.length;
+
+  $('#play-player-area-info-count').html(warApp.playerCardCount);
+  $('#play-computer-area-info-count').html(warApp.computerCardCount);
+
+  // determines if the player has won or lost
+  warApp.determineWin();
 };
+
+warApp.playerScore = () => {
+  //convert player score to string to add leading zeros
+  warApp.playerScoreString = warApp.player.score.toString().padStart(7, '0');
+
+  // update the UI
+  $('#play-player-area-info-score').html(warApp.playerScoreString)
+};
+
 
 // battle function when playing cards
 warApp.battle = () => {
@@ -126,6 +152,9 @@ warApp.battle = () => {
   console.log(`Player draws:`, playerBattleValue); 
   console.log(`Computer draws:`, computerBattleValue);
 
+  // count the cards
+  warApp.cardCount();
+
   // determines if the player wins or loses or war is to be declared
   if (playerBattleValue > computerBattleValue) {
     console.log('win');
@@ -133,37 +162,44 @@ warApp.battle = () => {
     // adds the cards to the players pile and updates the count
     warApp.playerCardPile = warApp.playerCardPile.concat([playerBattleCard, computerBattleCard]);
     
+    // adds to the player's score based on the card values*5 the player collects
+    warApp.player.score += (computerBattleValue * 5);
+
+    // updates the UI score
+    warApp.playerScore()
+
+    console.log(`Player has ${warApp.playerCardPile.length} cards.  Player score: ${warApp.player.score}`)
+
+    // count the cards
+    warApp.cardCount();
+
     // adds the war cards to the players pile and clears the war card pile array
     if (warApp.warCardPile.length > 0) {
       warApp.playerCardPile = warApp.playerCardPile.concat(warApp.warCardPile);
       warApp.warCardPile = [];
 
       // adds a score when the player wins a round of war
-      warApp.player.score =+ 100;
+      warApp.player.score =+ 1000;
+
+      // updates the UI score
+      warApp.playerScore()
+
+      // count the cards
+      warApp.cardCount();
     }
-
-    // adds to the player's score based on the cards the player collects
-    warApp.player.score += computerBattleValue;
-
-    // only adds the war card pile if there is something in it
-    warApp.playerCardCount = warApp.playerCardPile.length;
-    warApp.computerCardCount = warApp.computerCardPile.length;
-
-    console.log(`Player has ${warApp.playerCardPile.length} cards.  Player score: ${warApp.player.score}`)
-
   } else if (playerBattleValue < computerBattleValue) {
     console.log('lose');
 
     // adds the cards to the computers pile and updates the count
     warApp.computerCardPile = warApp.computerCardPile.concat([playerBattleCard, computerBattleCard])
-   
-    warApp.computerCardPile = warApp.computerCardPile.concat(warApp.warCardPile);
-    warApp.warCardPile = [];
-    
-    // only adds the war card pile if there is something in it
+    warApp.cardCount();
+
     if (warApp.warCardPile.length > 0) {
-      warApp.playerCardCount = warApp.playerCardPile.length
-      warApp.computerCardCount = warApp.computerCardPile.length;
+      warApp.computerCardPile = warApp.computerCardPile.concat(warApp.warCardPile);
+      warApp.warCardPile = [];
+
+      // count the cards
+      warApp.cardCount();
     }
 
     console.log(`Player has ${warApp.playerCardPile.length} cards`)
@@ -179,10 +215,11 @@ warApp.battle = () => {
     const playerRemoved = warApp.playerCardPile.splice(0, 3),
           computerRemoved = warApp.computerCardPile.splice(0, 3);
 
+    // count the cards
+    warApp.cardCount();
+
     // pushes the extra cards from either player/computer onto a war pile that either will win
     warApp.warCardPile = warApp.warCardPile.concat(playerRemoved, computerRemoved);
-
-    console.log(warApp.warCardPile);
 
     // goes to battle again
     warApp.battle();
@@ -194,15 +231,15 @@ warApp.determineWin = () => {
   if (warApp.playerCardCount >= 36) {
     console.log('YOU ARE VICTORIOUS')
   } else if (warApp.playerCardCount <= 26) {
-    console.log('Your forces have been depleted. They have won the war...')
+    console.log('Our forces have been depleted. They have won the war...')
   };
 };
 
+// calls the battle function when the user plays a card
 warApp.playCard = () => {
-  $('#playACard').on('click', function (e) {
+  $('#playGame').on('click', function (e) {
     warApp.battle();
 
-    // prevent the default behaviour
     e.preventDefault();
   });
 };

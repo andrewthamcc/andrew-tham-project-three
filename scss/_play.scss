@@ -1,0 +1,102 @@
+// play area
+.play {
+  height: 100vh;
+  background-color: $primary-color;
+  color: #ffffff;
+
+  &-flex-container {
+    display: flex;
+    flex-direction: column;
+    
+    height: 100vh;
+    padding: 1.5rem 0;
+  }
+
+  // player area and computer area take up each 50% of the 100vh 
+  &-computer-area,
+  &-player-area {
+    height: 50%;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding: 0.5rem 0;
+  }
+
+  // fix this later
+  img {
+    width: 7rem;
+    margin: 0 auto;
+  }
+
+  // computer info
+  &-computer-area-info {
+    display: flex;
+    justify-content: center;
+
+    &-count,
+    &-name,
+    &-empty {
+      width: calc(100% / 3);
+    }
+  }
+
+  // player buttons
+  &-player-area-controls-buttons button {
+    width: 10rem;
+    margin: 2rem 0.5rem 2rem;
+    text-transform: uppercase;
+
+    font-family: "Black Ops One", sans-serif;
+    font-size: 1.3rem;
+
+    background: $primary-color;
+    color: #ffffff;
+    padding: 0.3rem 0.5rem;
+    border: 3px solid #000000;
+    border-radius: 1rem;
+
+    &:hover,
+    &:focus {
+      background-color: lighten($primary-color, 10%);
+    }
+  
+    &:active {
+      background-color: darken($primary-color, 10%);
+    }
+  }
+
+  // player info
+  &-player-area-controls-info {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    padding-top: 0.5rem 0;  
+    
+    &-score,
+    &-name,
+    &-count {
+      width: calc(100% / 3);
+    }
+  }
+
+  // player/computer text styling
+  &-computer-area-info-count,
+  &-player-area-controls-info-score,
+  &-player-area-controls-info-count {
+    @include blackops(1.2rem, #ffffff, undefined);
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+  }
+
+  // player/computer text styling
+  &-computer-area-info-name,
+  &-player-area-controls-info-name {
+    text-transform: uppercase;
+    letter-spacing: 0.1rem;
+    font-weight: 700;
+  }
+}

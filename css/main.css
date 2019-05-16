@@ -233,7 +233,7 @@ img {
   font-family: 'Black Ops One', sans-serif;
   font-size: 15rem;
   letter-spacing: 1.5rem;
-  color: black;
+  color: #ffffff;
 }
 
 .header-about-text {
@@ -268,7 +268,7 @@ img {
   margin: 1rem auto;
   padding: 0.3rem 0;
   font-family: "Black Ops One", sans-serif;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
 }
 
 .header-about-form-submit {
@@ -276,12 +276,21 @@ img {
   width: 9rem;
   margin: 0 auto;
   text-transform: uppercase;
-  text-align: center;
-  border: 3px solid #000000;
-  margin: 0;
-  padding: 0.3rem 0;
   font-family: "Black Ops One", sans-serif;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
+  background: darkgreen;
+  color: #ffffff;
+  padding: 0.3rem 0.5rem;
+  border: 3px solid #000000;
+  border-radius: 1rem;
+}
+
+.header-about-form-submit:hover, .header-about-form-submit:focus {
+  background-color: #009700;
+}
+
+.header-about-form-submit:active {
+  background-color: #003100;
 }
 
 .instructions {
@@ -337,7 +346,16 @@ img {
   font-family: "Black Ops One", sans-serif;
   margin-top: 1rem;
   padding: 0.3rem 0.5rem;
+  border: 3px solid #000000;
   border-radius: 1rem;
+}
+
+.instructions-button:hover, .instructions-button:focus {
+  background-color: #009700;
+}
+
+.instructions-button:active {
+  background-color: #003100;
 }
 
 .instructions-rules-list {
@@ -348,5 +366,117 @@ img {
 .computer-name {
   font-weight: 700;
   color: red;
+}
+
+.play {
+  height: 100vh;
+  background-color: darkgreen;
+  color: #ffffff;
+}
+
+.play-flex-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  height: 100vh;
+  padding: 1.5rem 0;
+}
+
+.play-computer-area, .play-player-area {
+  height: 50%;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 0.5rem 0;
+}
+
+.play img {
+  width: 7rem;
+  margin: 0 auto;
+}
+
+.play-computer-area-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.play-computer-area-info-count, .play-computer-area-info-name, .play-computer-area-info-empty {
+  width: calc(100% / 3);
+}
+
+.play-player-area-controls-buttons button {
+  width: 10rem;
+  margin: 2rem 0.5rem 2rem;
+  text-transform: uppercase;
+  font-family: "Black Ops One", sans-serif;
+  font-size: 1.3rem;
+  background: darkgreen;
+  color: #ffffff;
+  padding: 0.3rem 0.5rem;
+  border: 3px solid #000000;
+  border-radius: 1rem;
+}
+
+.play-player-area-controls-buttons button:hover, .play-player-area-controls-buttons button:focus {
+  background-color: #009700;
+}
+
+.play-player-area-controls-buttons button:active {
+  background-color: #003100;
+}
+
+.play-player-area-controls-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: end;
+      -ms-flex-align: end;
+          align-items: flex-end;
+  padding-top: 0.5rem 0;
+}
+
+.play-player-area-controls-info-score, .play-player-area-controls-info-name, .play-player-area-controls-info-count {
+  width: calc(100% / 3);
+}
+
+.play-computer-area-info-count, .play-player-area-controls-info-score, .play-player-area-controls-info-count {
+  font-family: 'Black Ops One', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: undefined;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+}
+
+.play-computer-area-info-name, .play-player-area-controls-info-name {
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  font-weight: 700;
+}
+
+.footer {
+  text-align: center;
+  padding: 0.2rem 0;
+  background-color: #ffffff;
+  font-family: "Black Ops One", sans-serif;
 }
 /*# sourceMappingURL=main.css.map */

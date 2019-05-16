@@ -17,7 +17,7 @@
         <h1 class="header-title">WAR</h1>
 
         <div class="header-about">
-          <p class="header-about-text">Welcome to war, General! What's name should your troops address you as?</p>
+          <p class="header-about-text">Welcome to war, General! What name should your troops address you as?</p>
 
           <form id="header-about-form" class="header-about-form">
             <label for="header-about-form-input-name" class="visuallyHidden">Name:</label>
@@ -25,7 +25,7 @@
             <input type="submit" id="header-about-form-submit" class="header-about-form-submit" value="submit">
           </form>
         </div>
-      </div>
+      </div><!-- flex container ends -->
     </div>
   </header>
 
@@ -41,7 +41,7 @@
           <!-- war instructions fun normally displayed -->
           <div class="instructions-text">
             <div class="instructions-text-fun">
-              <p>General <span id="player-name"></span>, we're under attack by <span id="computer-name" class="computer-name"></span> from Beyclic Scard! You'll have to fight against their army of cards with an army of our own. You will be sending our forces into battle turn after turn and whoever is mightier will win. In the event of a stalemate you'll have to send three waves of reinforcements and follow it up by a single winner take all showdown.  If you do enough damage the the forces from Beyclic Scard we'll win!</p>
+              <p>General <span id="instructions-player-name"></span>, we're under attack by <span id="instructions-computer-name" class="computer-name"></span> and their forces from Beyclic Scard! You'll have to fight against their army of cards. You will be sending our forces into battle turn after turn and whoever is mightier will win. In the event of a stalemate you'll have to send three waves of reinforcements and follow it up by a single winner take all showdown.  If you do enough damage to the forces from Beyclic Scard we will be victorious!</p>
               <br>
               <p>Good luck, General. We're counting on you...</p>
             </div>
@@ -54,7 +54,7 @@
                 <li>Whoever has a higher card (Ace high) will win that turn and collect the played cards into their pile.</li>
                 <li>In the event of a draw, three aditional cards will be played face down followed by one face up card.  The player with the higher card collects the pile of all 10 cards.</li>
                 <li>Play will continue until one player wins 70% of the deck (36 cards).</li>
-                <li>At any time, the player can call a cease-fire and make peace.  This will result in no winner as there are truly no winners in war.</li>
+                <li>At any time, the player can call a ceasefire and make peace.  This will result in no winner as there are truly no winners in war.</li>
               </ul>
             </div>
             <button id="instructions-button" class="instructions-button">Read Standard Rules</button>
@@ -63,13 +63,62 @@
       </div>
     </section>
 
-    <button id="playACard">
-      PLAY!
-    </button>
+    <!-- playing area -->
+    <section class="play">
+      <div class="container">
+        <div class="play-flex-container">
+          
+          <!-- computer info area -->
+          <div class="play-computer-area">
+            <div class="play-computer-area-info">
+              <p class="play-computer-area-info-count">Forces Remaining: <span id="play-computer-area-info-count"></span></p>
+              <h2 id="play-computer-name" class="play-computer-area-info-name"></h2>
+              <span class="play-computer-area-info-empty"></span>
+            </div>
+
+            <!-- computer card -->
+            <div class="play-computer-area-card">
+              <img src="./assets/face-down-card.png" alt="card face down" class="card card-front">
+              <!-- <img src="./assets/cards/SPADES14.png" alt="" class="card card-back"> -->
+            </div>
+
+          </div><!-- computer area info ends -->
+
+          <!-- player area -->
+          <div class="play-player-area"> 
+            <!-- player card -->
+            <div class="play-player-area-card">
+              <img src="./assets/face-down-card.png" alt="card face down">
+            </div>
+            
+            <div class="play-player-area-controls">
+              <!-- player controls -->
+              <div class="play-player-area-controls-buttons">
+                <button id="playGame">battle</button>
+                <button id="truce">ceasefire</button>
+                <button id="war">war</button>
+              </div>
+              
+              <!-- player info -->
+              <div class="play-player-area-controls-info">
+                <p class="play-player-area-controls-info-score">Score: <span id="play-player-area-info-score"></span></p> 
+                <h2 class="play-player-area-controls-info-name">General <span id="play-player-name"></span>Andrew</h2>
+                <p class="play-player-area-controls-info-count">Forces Remaining: <span id="play-player-area-info-count"></span></p>
+              </div>
+            </div>
+          </div><!-- player area ends -->
+
+        </div><!-- flex container ends -->
+      </div>
+    </section>
+
+    <!-- footer -->
+    <footer class="footer">
+      <p class="footer-copyright">&copy; 2019 Andrew Tham</p>
+    </footer>
   </main>
 
-
-
+  <!-- scripts -->
   <script src='https://code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4='crossorigin='anonymous'></script>
   <script src="./js/main.js"></script>
 </body>
