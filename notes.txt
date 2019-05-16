@@ -6,12 +6,6 @@ Battle Progress:
 5. Cards hide
 6. Buttons are enabled
 
-Ceasefire Progress:
-1. Buttons are disabled
-2. Module appears congratulating user on choosing peace
-3. Score given 
-4. Ask if they'd like to play again
-
 War Happens:
 1. Buttons removed
 2. War button appears
@@ -22,7 +16,14 @@ War Happens:
 7. War button removed
 8. Buttons appear
 
+Ceasefire:
+1. Buttons are disabled
+2. Modal appears congratulating user on choosing peace
+3. Score given 
+4. Ask if they'd like to play again
+
 Win/Lose:
-1. Congratulate user on efforts (message will differ)
-2. Remind that war is actually a terrible thing
-3. Ask if they'd like to play again
+1. Buttons disabled
+2. Modal appears with message 
+3. Score given
+4. Ask if they'd like to play again

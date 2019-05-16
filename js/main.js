@@ -25,12 +25,10 @@ warApp.init = () => {
   warApp.computerName();
   warApp.toggleRules();
   warApp.buildDeck();
-  warApp.shuffleDeck();
-  warApp.dealCards();
   warApp.playCard();
-  warApp.cardCount();
+  warApp.ceasefire();
   warApp.playerScore();
-  warApp.determineWin();
+  warApp.playAgain();
 }
 
 // gets player name from input field
@@ -38,7 +36,7 @@ warApp.playerName = () => {
   $('#header-about-form').on('submit', function(e){
     warApp.player.name = $('#header-about-form-input-name').val()
 
-    // update UI in instructions
+    // update UI with player name
     $('#instructions-player-name').html(warApp.player.name);
     $('#play-player-name').html(warApp.player.name);
     e.preventDefault();
@@ -84,6 +82,8 @@ warApp.buildDeck = () => {
       warApp.deck.push(card);
     });
   });
+
+  warApp.shuffleDeck();
 };
 
 // function that randomizes the deck by changing location of array items
@@ -102,6 +102,8 @@ warApp.shuffleDeck = () => {
 
     shuffleCount++;
   };
+
+  warApp.dealCards();
 };
 
 // deal the cards by splicing the now shuffled deck array into two arrays
@@ -229,16 +231,48 @@ warApp.battle = () => {
 // determine if the player or computer has won
 warApp.determineWin = () => {
   if (warApp.playerCardCount >= 36) {
-    console.log('YOU ARE VICTORIOUS')
-  } else if (warApp.playerCardCount <= 26) {
-    console.log('Our forces have been depleted. They have won the war...')
+    console.log('YOU ARE VICTORIOUS');
+  } else if (warApp.playerCardCount <= 16) {
+    console.log('Our forces have been depleted. They have won the war...');
   };
 };
 
+// modal appears when game ends
+warApp.gameModal = (title, message) => {
+  $('.play-modal').fadeIn();
+
+  // disables buttons so user can't play game
+  $('#play-player-area-controls-buttons-battle').attr('disabled', true);
+  $('#play-player-area-controls-buttons-ceasefire').attr('disabled', true);
+
+  $('#play-modal-title').html(title);
+  $('#play-modal-message').html(message);
+
+};
+
+warApp.playAgain = () => {
+  $('#play-modal-button').on('click', function(){
+    window.location.reload(true);
+  });
+}
+
 // calls the battle function when the user plays a card
 warApp.playCard = () => {
-  $('#playGame').on('click', function (e) {
+  $('#play-player-area-controls-buttons-battle').on('click', function (e) {
     warApp.battle();
+
+    e.preventDefault();
+  });
+};
+
+// calls for ceasefire
+warApp.ceasefire = () => {
+  $('#play-player-area-controls-buttons-ceasefire').on('click', function (e) {
+    
+    warApp.gameMessage = `General, you've called a ceasefire and made peace with the enemy.  Our two nations will work together to rebuild and attempt to prevent the atrocitiy of war from happening again. Your brilliant negotation and steadfast resolution to peace will usher forth an englightment in the world.`
+    
+    warApp.gameModal('CEASEFIRE', warApp.gameMessage);
+    console.log(true);
 
     e.preventDefault();
   });
