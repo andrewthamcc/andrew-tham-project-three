@@ -24,11 +24,8 @@
 
     font-size: 1.3rem;
     line-height: 1.6;
-  
-    &-fun {
-      display: block;
-    }
 
+    // hide the boring instructions
     &-plain {
       display: none;
     }
@@ -41,24 +38,14 @@
   &-hide {
     display: none;
   }
-
-  &-button {
-    background: $primary-color;
-    color: #ffffff;
-    font-family: "Black Ops One", sans-serif;
-    margin-top: 1rem;
-    padding: 0.3rem 0.5rem;
-    border: 3px solid #000000;
-    border-radius: 1rem;
   
-    &:hover,
-    &:focus {
-      background-color: lighten($primary-color, 10%);
-    }
-
-    &:active {
-      background-color: darken($primary-color, 10%);
-    }
+  &-button {
+    margin: 1rem auto;
+    width: auto;
+  }
+  
+  &-skip {
+    padding: 0.3rem 2rem;
   }
 
   // styles for the rules list
@@ -69,6 +56,7 @@
 }
 
 .computer-name {
+  color: $primary-color;
+  text-transform: uppercase;
   font-weight: 700;
-  color: red;
 }

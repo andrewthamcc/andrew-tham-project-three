@@ -1,17 +1,6 @@
-Battle Progress:
-1. Player clicks battle button
-2. Player buttons are disabled so user can't spam controls
-3. Cards appear on playing area
-4. Win/Lose appear
-5. Cards hide
-6. Buttons are enabled
-
 War Happens:
-1. Buttons removed
-2. War button appears
-3. Background changes to camoflauge
-4. Cards are dealt
-5. Battle cards reveal
-6. Win/Lose
-7. War button removed
-8. Buttons appear
+- show reinforement cards
+
+Buttons: 
+- clean up CSS
+- go through js

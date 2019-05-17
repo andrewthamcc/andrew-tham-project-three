@@ -17,14 +17,29 @@
         <h1 class="header-title">WAR</h1>
 
         <div class="header-about">
-          <p class="header-about-text">Welcome to war, General! What name should your troops address you as?</p>
+          <p class="header-about-text">Welcome to WAR, General!</p>
+          <p class="header-about-text">What name should your troops address you as?</p>
 
           <form id="header-about-form" class="header-about-form">
             <label for="header-about-form-input-name" class="visuallyHidden">Name:</label>
             <input type="text" placeholder="NAME" id="header-about-form-input-name" class="header-about-form-input-name">
             <label for="header-about-form-submit" class="visuallyHidden">Submit</label>
-            <input type="submit" id="header-about-form-submit" class="header-about-form-submit" value="submit">
+            <input type="submit" id="header-about-form-submit" class="header-about-form-submit button" value="submit">
           </form>
+        </div>
+
+        <!-- modal for name -->
+        <div class="header-modal">
+          <div class="header-modal-text container">
+            <p class="header-modal-message">Invalid Name</p>
+            <button class="header-modal-button button">CLOSE</button>
+          </div>
+        </div><!-- modals ends -->
+
+        <div class="header-skip-arrow">
+          <a href="#instructions">
+            <img src="./assets/chevron.png" alt="chevron arrows skip to instructions content">
+          </a>
         </div>
       </div><!-- flex container ends -->
     </div>
@@ -32,7 +47,7 @@
 
   <main>
     <!-- about the game -->
-    <section class="instructions">
+    <section class="instructions" id="instructions">
       <div class="container">
         <div class="instructions-flex-container">
           <div class="instructions-image">
@@ -51,21 +66,22 @@
             <div class="instructions-text-plain">
               <p>You will be playing the card game war against a computer opponent with the following rules:</p>
               <ul class="instructions-rules-list">
-                <li>Each turn you and the computer will both play a card.</li>
-                <li>Whoever has a higher card (Ace high) will win that turn and collect the played cards into their pile.</li>
-                <li>In the event of a draw, three aditional cards will be played face down followed by one face up card.  The player with the higher card collects the pile of all 10 cards.</li>
-                <li>Play will continue until one player wins 70% of the deck (36 cards).</li>
-                <li>At any time, the player can call a ceasefire and make peace.  This will result in no winner as there are truly no winners in war.</li>
+                <li>A single card is played each turn.</li>
+                <li>The high card (Ace high) wins that turn and the played cards collected into the winners pile.</li>
+                <li>In the event of a draw (war), two aditional cards are played followed by another card to determine the winner. The winner collects all the cards.</li>
+                <li>Play continues until one player wins 70% of the deck (36 cards).</li>
+                <li>At any time, the player can call a ceasefire. This results in a draw.</li>
               </ul>
             </div>
-            <button id="instructions-button" class="instructions-button">Read Standard Rules</button>
-          </div>
-        </div>
+            <button class="instructions-button button">Standard Rules</button>
+            <a href="#play" class="instructions-skip button">play</a>
+          </div><!-- instructions text end -->
+        </div><!-- flex container ends -->
       </div>
     </section>
 
     <!-- playing area -->
-    <section class="play">
+    <section class="play" id="play">
       <div class="container">
           
         <!-- computer info area -->
@@ -80,7 +96,7 @@
           <div class="play-computer-area-card card-flip">
             <div class="card-flip-container card-flip-reverse">
               <div class="card-flip-front">
-                <img src="./assets/face-down-card.png" alt="card face down">
+                <img src="./assets/card-red.png" alt="card face down">
               </div>
               <div class="card-flip-back computer-card"></div>
             </div>
@@ -97,7 +113,7 @@
           <div class="play-player-area-card card-flip">
             <div class="card-flip-container card-flip-forward">
               <div class="card-flip-front">
-                <img src="./assets/face-down-card.png" alt="card face down">
+                <img src="./assets/card-blue.png" alt="card face down">
               </div>
               <div class="card-flip-back player-card"></div>
             </div>
@@ -108,14 +124,14 @@
           <div class="play-player-area-controls">
             <!-- player controls -->
             <div class="play-player-area-controls-buttons">
-              <button id="play-player-area-controls-buttons-battle">battle</button>
-              <button id="play-player-area-controls-buttons-ceasefire">ceasefire</button>
+              <button class="play-player-area-controls-buttons-battle button">battle</button>
+              <button class="play-player-area-controls-buttons-ceasefire button">ceasefire</button>
             </div>
             
             <!-- player info -->
             <div class="play-player-area-controls-info">
-              <p class="play-player-area-controls-info-score">Score: <span id="play-player-area-info-score"></span></p> 
-              <h2 class="play-player-area-controls-info-name">General <span id="play-player-name"></span></h2>
+              <p class="play-player-area-controls-info-score">Score: <span id="play-player-area-info-score">000000</span></p> 
+              <h2 class="play-player-area-controls-info-name" id="play-player-name"></h2>
               <p class="play-player-area-controls-info-count">Forces Remaining: <span id="play-player-area-info-count"></span></p>
             </div>
           </div><!-- player controls & info -->
@@ -124,10 +140,10 @@
         <!-- game outcome modal -->
         <div class="play-modal" id="play-modal">
           <div class="play-modal-text container">
-            <h2 id="play-modal-title" class="play-modal-title">VICTORY</h2>
-            <p id="play-modal-message" class="play-modal-message">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nam cupiditate possimus laudantium iusto animi molestiae soluta dolor quas cumque iste.</p>
-            <p class="play-modal-score">score: <span id="play-modal-score"></span></p>
-            <button id="play-modal-button" class="play-modal-button">Play Again</button>
+            <h2 id="play-modal-title" class="play-modal-title"></h2>
+            <p id="play-modal-message" class="play-modal-message"></p>
+            <p class="play-modal-score">score: <span id="play-modal-score">000000</span></p>
+            <button class="play-modal-button button">Play Again</button>
           </div>
         </div><!-- modals ends -->
 
@@ -142,6 +158,8 @@
 
   <!-- scripts -->
   <script src='https://code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4='crossorigin='anonymous'></script>
+  <!-- https://github.com/alicelieutier/smoothScroll -->
+  <script src="./js/smoothscroll.min.js"></script>
   <script src="./js/main.js"></script>
 </body>
 </html>

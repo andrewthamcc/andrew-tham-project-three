@@ -5,6 +5,8 @@
   color: #ffffff;
   position: relative;
 
+  font-family: "Black Ops One", sans-serif;
+
   // styles used for when the background image changes during war
   background-position: center;
   background-size: cover;
@@ -34,30 +36,24 @@
     &-empty {
       width: calc(100% / 3);
     }
+
+    &-name {
+      font-size: 1.8rem;
+      text-shadow: 2px 2px #000000;
+    }
   }
 
   // player buttons
-  &-player-area-controls-buttons button {
-    width: 10rem;
+  &-player-area-controls-buttons {
     margin: 1rem 0.5rem;
-    text-transform: uppercase;
 
-    font-family: "Black Ops One", sans-serif;
-    font-size: 1.3rem;
-
-    background: $primary-color;
-    color: #ffffff;
-    padding: 0.3rem 0.5rem;
-    border: 3px solid #000000;
-    border-radius: 1rem;
-
-    &:hover,
-    &:focus {
-      background-color: lighten($primary-color, 10%);
-    }
-  
-    &:active {
-      background-color: darken($primary-color, 10%);
+    // buttons grey out when disabled during gameplay
+    &-battle,
+    &-ceasefire {
+      &.disabled {
+        background-color: #373737;
+        color: #777777;
+      }
     }
   }
 
@@ -73,6 +69,11 @@
     &-name,
     &-count {
       width: calc(100% / 3);
+    }
+
+    &-name {
+      font-size: 1.8rem;
+      text-shadow: 2px 2px #000000;
     }
   }
 
@@ -92,9 +93,25 @@
     letter-spacing: 0.1rem;
     font-weight: 700;
   }
+
+    // WIN, LOSE, WAR message
+  &-battle-message-text {
+    display: none;
+    position: absolute;
+    text-align: center;
+    top: calc(50% - 5rem);
+    left: -5rem;
+    z-index: 999;
+    height: 100%;
+    width: 100%;
+    transform: rotate(20deg);
+  
+    @include blackops(10rem, #000000, undefined);
+  }
 }
 
-// card flip
+// card flip styles/animation
+// tutorial from W3C
 .card-flip {
   width: 6.5rem;
   height: auto;
@@ -131,20 +148,6 @@
   }
 }
 
-.play-battle-message-text {
-  display: none;
-  position: absolute;
-  text-align: center;
-  top: calc(50% - 5rem);
-  left: -5rem;
-  z-index: 999;
-  height: 100%;
-  width: 100%;
-  transform: rotate(20deg);
-
-  @include blackops(10rem, #000000, undefined);
-}
-
 // modal pop up for game ending
 .play-modal {
   display: none;
@@ -154,25 +157,26 @@
   z-index: 999;
   height: 100%;
   width: 100%;
-  background-color: rgba(0,0,0,0.3);
+  background-color: rgba(0,0,0,0.7);
 
   &-text {
     border-radius: 2rem;
     background-color: #544;
     width: 80%;
-    margin: 5% auto;
+    margin: 2% auto;
     padding: 2rem 0;
   }
 
   &-title {
     text-transform: uppercase;
     text-align: center;
-    font-size: 4.5rem;
+    font-size: 5rem;
     font-weight: 700;
     letter-spacing: 0.2rem;
   }
 
   &-message {
+    font-family: "Lato", sans-serif;
     font-size: 1.3rem;
     line-height: 1.6;
     width: 80%;
@@ -182,24 +186,10 @@
   &-score {
     text-transform: uppercase;
     text-align: center;
-    @include blackops(1.2rem, #ffffff, undefined);
   }
 
   &-button {
-    text-align: center;
-    text-transform: uppercase;
-    background-color: #cfcfcf;
-    border: 2px solid #000000;
-    background-color: $primary-color;
-    color: #ffffff;
-    border-radius: 1rem;
-
     display: block;
-    width: 10rem;
     margin: 2rem auto;
-    padding: 0.3rem 0;
-
-    font-family: "Black Ops One", sans-serif;
-    font-size: 1.3rem;
   }
 }

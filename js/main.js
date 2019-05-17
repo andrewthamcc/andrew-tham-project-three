@@ -10,12 +10,13 @@ const warApp = {
   // player information
   player: {
     name: '',
-    score: 0
+    score: 0,
   },
 
   computer: {
     // an array of possible computer names that the player will face at random
-    possibleNames: ['General Harry Hearts', 'Colonel Amy Aces', 'Admiral Denise Diamonds', 'Major Steven Spades']
+    possibleNames: ['General Harry Hearts', 'Colonel Amy Aces', 'Admiral Denise Diamonds', 'Major Steven Spades'],
+    possiblePhrases: ['']
   }
 };
 
@@ -33,11 +34,8 @@ warApp.init = () => {
 
 // prevents the user from scrolling until their name is filled out
 warApp.windowScroll = () => {
-  
-  // prevents user from scrolling until their name is filled out
-  // if (warApp.player.name) {
-  //   $('body').css('overflow', 'auto');
-  // } else {
+  // if the user refreshes the page mid game it does not lock the user to the screen
+  // if (window.pageYOffset === 0) {
   //   $('body').css('overflow', 'hidden');
   // }
 }
@@ -46,19 +44,30 @@ warApp.windowScroll = () => {
 warApp.playerName = () => {
   $('#header-about-form').on('submit', function(e){
     warApp.player.name = $('#header-about-form-input-name').val()
-    $('#instructions-player-name').html(warApp.player.name);
-    $('#play-player-name').html(warApp.player.name);
 
-    warApp.windowScroll();
+    // RegEx for validating name entry
+    const re = /^[a-z .-]+$/i;    
+    
+    if (re.test(warApp.player.name)){
+      // update the UI
+      $('#instructions-player-name').html(warApp.player.name);
+      $('#play-player-name').html(warApp.player.name);
 
-    // const re = /^[a-z ,.'-]+$/i;
-    // if (!re.test(name)){
-    //   warApp.player.name = $('#header-about-form-input-name').val()
-    //   console.log('valid');  
-    // } else {
-    //   console.log('invalid');
-    //   // $('#header-about-form-input-name').val('')
-    // }
+      // enable scroll and show skip arrow
+      $('body').css('overflow', 'auto');
+      $('.header-skip-arrow').fadeIn();
+    } else {
+      // clear the input field
+      $('#header-about-form-input-name').val()
+
+      // display modal message
+      $('.header-modal').fadeIn();
+
+      // click to close
+      $('.header-modal-button').on('click', function(){
+        $('.header-modal').fadeOut()
+      });
+    }
 
     e.preventDefault();
   });
@@ -75,13 +84,13 @@ warApp.computerName = () => {
 
 // toggles the rules and button text
 warApp.toggleRules = () => {
-  $('#instructions-button').on('click', function(e){
+  $('.instructions-button').on('click', function(e){
     
     $('.instructions-text-fun').toggleClass('instructions-hide');
     $('.instructions-text-plain').toggleClass('instructions-show');
 
     $(this).text(function (index, current) {
-      return (current === 'Read Standard Rules') ? 'Read Fun Rules' : 'Read Standard Rules';
+      return (current === 'Standard Rules') ? 'Fun Rules' : 'Standard Rules';
     })
 
   });
@@ -109,7 +118,6 @@ warApp.buildDeck = () => {
 
 // function that randomizes the deck by changing location of array items
 warApp.shuffleDeck = () => {
-  // I know this can be done in a for loop but we were told there were few aspects to use a while loop.  This is a practical example of when one can be used.
   let shuffleCount = 0;
   while(shuffleCount < 500) {
     // gets two random cards from the deck
@@ -157,7 +165,6 @@ warApp.playerScore = () => {
   $('#play-player-area-info-score').html(warApp.playerScoreString)
 };
 
-
 // battle function when playing cards
 warApp.battle = () => {
   // play a user card
@@ -176,17 +183,14 @@ warApp.battle = () => {
   $('.computer-card').html(`<img src=${computerBattleImage}>`);
   $('.player-card').html(`<img src=${playerBattleImage}>`);
 
-  $('.card-flip-reverse').toggleClass('rotate');
-  $('.card-flip-forward').toggleClass('rotate');
+  $('.card-flip-reverse').addClass('rotate');
+  $('.card-flip-forward').addClass('rotate');
 
   // time out to return the cards to normal position
   setTimeout(() => {
     $('.card-flip-reverse').removeClass('rotate');
     $('.card-flip-forward').removeClass('rotate');
   }, 2000)
-
-  // count the cards
-  warApp.cardCount();
 
   // determines if the player wins or loses or war is to be declared
   if (playerBattleValue > computerBattleValue) {
@@ -197,17 +201,15 @@ warApp.battle = () => {
       setTimeout(() => {
         $('.play-battle-message-text').fadeOut()
         // enables buttons for play again
-        $('#play-player-area-controls-buttons-battle').removeAttr('disabled');
-        $('#play-player-area-controls-buttons-ceasefire').removeAttr('disabled');
+        $('.play-player-area-controls-buttons-battle').removeAttr('disabled');
+        $('.play-player-area-controls-buttons-ceasefire').removeAttr('disabled');
+        $('.play-player-area-controls-buttons-battle').removeClass('disabled');
+        $('.play-player-area-controls-buttons-ceasefire').removeClass('disabled');
       }, 1000);
     }, 1500);
 
-    // enables buttons for play again
-    $('#play-player-area-controls-buttons-battle').removeAttr('disabled');
-    $('#play-player-area-controls-buttons-ceasefire').removeAttr('disabled');
-
-    // removes camo background if war was declared 
-    $('.play').css('background', ``);
+    // count the cards
+    warApp.cardCount();
 
     // adds the cards to the players pile and updates the count
     warApp.playerCardPile = warApp.playerCardPile.concat([playerBattleCard, computerBattleCard]);
@@ -218,10 +220,7 @@ warApp.battle = () => {
     // updates the UI score
     warApp.playerScore()
 
-    // count the cards
-    warApp.cardCount();
-
-    // adds the war cards to the players pile and clears the war card pile array
+    // adds cards to the pile if war was declared and won
     if (warApp.warCardPile.length > 0) {
       warApp.playerCardPile = warApp.playerCardPile.concat(warApp.warCardPile);
       warApp.warCardPile = [];
@@ -234,6 +233,9 @@ warApp.battle = () => {
 
       // count the cards
       warApp.cardCount();
+
+      // removes camo background if war was declared 
+      $('.play').css('background', ``);
     }
   } else if (playerBattleValue < computerBattleValue) {
     // show the ui message
@@ -243,30 +245,33 @@ warApp.battle = () => {
       setTimeout(() => { 
         $('.play-battle-message-text').fadeOut() 
         // enables buttons for play again
-        $('#play-player-area-controls-buttons-battle').removeAttr('disabled');
-        $('#play-player-area-controls-buttons-ceasefire').removeAttr('disabled');
+        $('.play-player-area-controls-buttons-battle').removeAttr('disabled');
+        $('.play-player-area-controls-buttons-ceasefire').removeAttr('disabled');
+        $('.play-player-area-controls-buttons-battle').removeClass('disabled');
+        $('.play-player-area-controls-buttons-ceasefire').removeClass('disabled');
       }, 1000);
     }, 1500);
-
-    // removes camo background if war was declared 
-    $('.play').css('background', ``);
 
     // adds the cards to the computers pile and updates the count
     warApp.computerCardPile = warApp.computerCardPile.concat([playerBattleCard, computerBattleCard])
     warApp.cardCount();
 
+    // adds cards to the pile if war was declared and won
     if (warApp.warCardPile.length > 0) {
       warApp.computerCardPile = warApp.computerCardPile.concat(warApp.warCardPile);
       warApp.warCardPile = [];
 
       // count the cards
       warApp.cardCount();
+
+      // removes camo background if war was declared 
+      $('.play').css('background', ``);
     }
   
   } else if (playerBattleValue === computerBattleValue) {
     // change the background of the playing field
     setTimeout(() =>{
-      $('.play').css('background', `linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('../assets/camo.jpg')`);
+      $('.play').css('background', `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('./assets/camo.jpg')`);
     }, 2800);
 
     // show the ui message
@@ -276,8 +281,10 @@ warApp.battle = () => {
       setTimeout(() => {
         $('.play-battle-message-text').fadeOut()
         // enables buttons for play again
-        $('#play-player-area-controls-buttons-battle').removeAttr('disabled');
-        $('#play-player-area-controls-buttons-ceasefire').removeAttr('disabled');
+        $('.play-player-area-controls-buttons-battle').removeAttr('disabled');
+        $('.play-player-area-controls-buttons-ceasefire').removeAttr('disabled');
+        $('.play-player-area-controls-buttons-battle').removeClass('disabled');
+        $('.play-player-area-controls-buttons-ceasefire').removeClass('disabled');
       }, 1000);
     }, 1500);
 
@@ -312,10 +319,12 @@ warApp.determineWin = () => {
 warApp.gameModal = (title) => {
   $('.play-modal').fadeIn();
 
-  // disables buttons so user can't play game
-  $('#play-player-area-controls-buttons-battle').attr('disabled', true);
-  $('#play-player-area-controls-buttons-ceasefire').attr('disabled', true);
-  
+  // disables buttons and greys them out so user can't play game
+  $('.play-player-area-controls-buttons-battle').attr('disabled', true);
+  $('.play-player-area-controls-buttons-ceasefire').attr('disabled', true);
+  $('.play-player-area-controls-buttons-battle').addClass('disabled');
+  $('.play-player-area-controls-buttons-ceasefire').addClass('disabled');
+
   // displays the appropriate message and title
   $('#play-modal-title').html(title);
   $('#play-modal-message').html(warApp.gameMessage);
@@ -324,19 +333,21 @@ warApp.gameModal = (title) => {
 };
 
 warApp.playAgain = () => {
-  $('#play-modal-button').on('click', function(){
+  $('.play-modal-button').on('click', function(){
     window.location.reload(true);
   });
 }
 
 // calls the battle function when the user plays a card
 warApp.playCard = () => {
-  $('#play-player-area-controls-buttons-battle').on('click', function (e) {
+  $('.play-player-area-controls-buttons-battle').on('click', function (e) {
     warApp.battle();
 
     // disables buttons so user can't spam buttons
-    $('#play-player-area-controls-buttons-battle').attr('disabled', true);
-    $('#play-player-area-controls-buttons-ceasefire').attr('disabled', true);
+    $('.play-player-area-controls-buttons-battle').attr('disabled', true);
+    $('.play-player-area-controls-buttons-ceasefire').attr('disabled', true);
+    $('.play-player-area-controls-buttons-battle').addClass('disabled');
+    $('.play-player-area-controls-buttons-ceasefire').addClass('disabled');
 
     e.preventDefault();
   });
@@ -344,7 +355,7 @@ warApp.playCard = () => {
 
 // calls for ceasefire
 warApp.ceasefire = () => {
-  $('#play-player-area-controls-buttons-ceasefire').on('click', function (e) {
+  $('.play-player-area-controls-buttons-ceasefire').on('click', function (e) {
     
     warApp.gameMessage = `General, you've called a ceasefire and made peace. Our two nations will work together to rebuild and attempt to prevent the atrocitiy of war from happening again. Your brilliant negotation and steadfast resolution to peace will usher forth an englightment in the world.  As you know, there are truly no winners of war.`
     

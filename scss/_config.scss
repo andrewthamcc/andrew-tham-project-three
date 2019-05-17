@@ -1,0 +1,52 @@
+
+html {
+  font-size: 125%
+}
+
+body {
+  font-family: "Lato", sans-serif;
+  font-size: 0.9rem;
+}
+
+h1, h2, p, ul {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  width: 100%;
+  max-width: 100%;
+  display: block;
+}
+
+.container {
+  width: 90%;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.button {
+  width: 10rem;
+  text-transform: uppercase;
+
+  @include blackops(1.3rem, #ffffff, undefined);
+
+  background: $primary-color;
+  color: #ffffff;
+  padding: 0.3rem 0.5rem;
+  border: 3px solid $secondary-color;
+  border-radius: 1rem;
+
+  &:hover,
+  &:focus {
+    background-color: lighten($primary-color, 10%);
+  }
+
+  &:active {
+    background-color: darken($primary-color, 10%);
+  }
+}

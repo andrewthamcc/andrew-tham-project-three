@@ -15,13 +15,15 @@
   }
 
   &-title {
-    @include blackops(15rem, #ffffff, 1.5rem);
+    @include blackops(15rem, #FFFFFF, 1.5rem);
   }
 
   &-about-text {
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 700;
+    color: #FFFFFF;
+    text-shadow: 2px 2px $secondary-color;
   }
 
   &-about-form {
@@ -32,8 +34,8 @@
 
     &-input-name {
       text-align: center;
-      background-color: #cfcfcf;
-      border: 2px solid #000000;
+      background-color: #FFFFFF;
+      border: 2px solid $secondary-color;
       border-radius: 1rem;
 
       display: block;
@@ -47,31 +49,46 @@
 
     &-submit {
       display: block;
+    }
+  }
 
-      width: 9rem;
-      margin: 0 auto;
-      text-transform: uppercase;
+  &-skip-arrow {
+    display: none;
+    margin-top: 4rem;
+  }
   
-
-      font-family: "Black Ops One", sans-serif;
-      font-size: 1.3rem;
-
-      background: $primary-color;
+  // modal pop up name entry
+  &-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(255, 0, 0, 0.7);
+  
+    &-close {
+      float: right;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+  
+    &-text {
+      background-color: $secondary-color;
       color: #ffffff;
-      padding: 0.3rem 0.5rem;
-      border: 3px solid #000000;
-      border-radius: 1rem;
-
-      &:hover,
-      &:focus {
-        background-color: lighten($primary-color, 10%);
-      }
-    
-      &:active {
-        background-color: darken($primary-color, 10%);
-      }
+      
+      @include blackops(2rem, #ffffff, undefined);
+      text-transform: uppercase;
+      font-weight: 700;
+      text-align: center;
+     
+      width: 40%;
+      margin: 15% auto;
+      padding: 2rem 0;
     }
   }
 }
+
 
 

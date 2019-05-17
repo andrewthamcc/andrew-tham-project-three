@@ -188,9 +188,13 @@ body {
   font-size: 0.9rem;
 }
 
-h1, h2, h3, p, ul {
+h1, h2, p, ul {
   margin: 0;
   padding: 0;
+}
+
+a {
+  text-decoration: none;
 }
 
 img {
@@ -203,6 +207,28 @@ img {
   width: 90%;
   max-width: 1280px;
   margin: 0 auto;
+}
+
+.button {
+  width: 10rem;
+  text-transform: uppercase;
+  font-family: 'Black Ops One', sans-serif;
+  font-size: 1.3rem;
+  letter-spacing: undefined;
+  color: #ffffff;
+  background: darkgreen;
+  color: #ffffff;
+  padding: 0.3rem 0.5rem;
+  border: 3px solid #070707;
+  border-radius: 1rem;
+}
+
+.button:hover, .button:focus {
+  background-color: #009700;
+}
+
+.button:active {
+  background-color: #003100;
 }
 
 .header {
@@ -233,13 +259,15 @@ img {
   font-family: 'Black Ops One', sans-serif;
   font-size: 15rem;
   letter-spacing: 1.5rem;
-  color: #ffffff;
+  color: #FFFFFF;
 }
 
 .header-about-text {
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 700;
+  color: #FFFFFF;
+  text-shadow: 2px 2px #070707;
 }
 
 .header-about-form {
@@ -260,8 +288,8 @@ img {
 
 .header-about-form-input-name {
   text-align: center;
-  background-color: #cfcfcf;
-  border: 2px solid #000000;
+  background-color: #FFFFFF;
+  border: 2px solid #070707;
   border-radius: 1rem;
   display: block;
   width: 18rem;
@@ -273,24 +301,43 @@ img {
 
 .header-about-form-submit {
   display: block;
-  width: 9rem;
-  margin: 0 auto;
-  text-transform: uppercase;
-  font-family: "Black Ops One", sans-serif;
-  font-size: 1.3rem;
-  background: darkgreen;
+}
+
+.header-skip-arrow {
+  display: none;
+  margin-top: 4rem;
+}
+
+.header-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(255, 0, 0, 0.7);
+}
+
+.header-modal-close {
+  float: right;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.header-modal-text {
+  background-color: #070707;
   color: #ffffff;
-  padding: 0.3rem 0.5rem;
-  border: 3px solid #000000;
-  border-radius: 1rem;
-}
-
-.header-about-form-submit:hover, .header-about-form-submit:focus {
-  background-color: #009700;
-}
-
-.header-about-form-submit:active {
-  background-color: #003100;
+  font-family: 'Black Ops One', sans-serif;
+  font-size: 2rem;
+  letter-spacing: undefined;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-align: center;
+  width: 40%;
+  margin: 15% auto;
+  padding: 2rem 0;
 }
 
 .instructions {
@@ -324,10 +371,6 @@ img {
   line-height: 1.6;
 }
 
-.instructions-text-fun {
-  display: block;
-}
-
 .instructions-text-plain {
   display: none;
 }
@@ -341,21 +384,12 @@ img {
 }
 
 .instructions-button {
-  background: darkgreen;
-  color: #ffffff;
-  font-family: "Black Ops One", sans-serif;
-  margin-top: 1rem;
-  padding: 0.3rem 0.5rem;
-  border: 3px solid #000000;
-  border-radius: 1rem;
+  margin: 1rem auto;
+  width: auto;
 }
 
-.instructions-button:hover, .instructions-button:focus {
-  background-color: #009700;
-}
-
-.instructions-button:active {
-  background-color: #003100;
+.instructions-skip {
+  padding: 0.3rem 2rem;
 }
 
 .instructions-rules-list {
@@ -364,8 +398,9 @@ img {
 }
 
 .computer-name {
+  color: darkgreen;
+  text-transform: uppercase;
   font-weight: 700;
-  color: red;
 }
 
 .play {
@@ -373,6 +408,7 @@ img {
   background-color: darkgreen;
   color: #ffffff;
   position: relative;
+  font-family: "Black Ops One", sans-serif;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -408,25 +444,18 @@ img {
   width: calc(100% / 3);
 }
 
-.play-player-area-controls-buttons button {
-  width: 10rem;
+.play-computer-area-info-name {
+  font-size: 1.8rem;
+  text-shadow: 2px 2px #000000;
+}
+
+.play-player-area-controls-buttons {
   margin: 1rem 0.5rem;
-  text-transform: uppercase;
-  font-family: "Black Ops One", sans-serif;
-  font-size: 1.3rem;
-  background: darkgreen;
-  color: #ffffff;
-  padding: 0.3rem 0.5rem;
-  border: 3px solid #000000;
-  border-radius: 1rem;
 }
 
-.play-player-area-controls-buttons button:hover, .play-player-area-controls-buttons button:focus {
-  background-color: #009700;
-}
-
-.play-player-area-controls-buttons button:active {
-  background-color: #003100;
+.play-player-area-controls-buttons-battle.disabled, .play-player-area-controls-buttons-ceasefire.disabled {
+  background-color: #373737;
+  color: #777777;
 }
 
 .play-player-area-controls-info {
@@ -446,6 +475,11 @@ img {
   width: calc(100% / 3);
 }
 
+.play-player-area-controls-info-name {
+  font-size: 1.8rem;
+  text-shadow: 2px 2px #000000;
+}
+
 .play-computer-area-info-count, .play-player-area-controls-info-score, .play-player-area-controls-info-count {
   font-family: 'Black Ops One', sans-serif;
   font-size: 1.2rem;
@@ -459,6 +493,23 @@ img {
   text-transform: uppercase;
   letter-spacing: 0.1rem;
   font-weight: 700;
+}
+
+.play-battle-message-text {
+  display: none;
+  position: absolute;
+  text-align: center;
+  top: calc(50% - 5rem);
+  left: -5rem;
+  z-index: 999;
+  height: 100%;
+  width: 100%;
+  -webkit-transform: rotate(20deg);
+          transform: rotate(20deg);
+  font-family: 'Black Ops One', sans-serif;
+  font-size: 10rem;
+  letter-spacing: undefined;
+  color: #000000;
 }
 
 .card-flip {
@@ -505,23 +556,6 @@ img {
           transform: rotateY(180deg);
 }
 
-.play-battle-message-text {
-  display: none;
-  position: absolute;
-  text-align: center;
-  top: calc(50% - 5rem);
-  left: -5rem;
-  z-index: 999;
-  height: 100%;
-  width: 100%;
-  -webkit-transform: rotate(20deg);
-          transform: rotate(20deg);
-  font-family: 'Black Ops One', sans-serif;
-  font-size: 10rem;
-  letter-spacing: undefined;
-  color: #000000;
-}
-
 .play-modal {
   display: none;
   position: fixed;
@@ -530,26 +564,27 @@ img {
   z-index: 999;
   height: 100%;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .play-modal-text {
   border-radius: 2rem;
   background-color: #544;
   width: 80%;
-  margin: 5% auto;
+  margin: 2% auto;
   padding: 2rem 0;
 }
 
 .play-modal-title {
   text-transform: uppercase;
   text-align: center;
-  font-size: 4.5rem;
+  font-size: 5rem;
   font-weight: 700;
   letter-spacing: 0.2rem;
 }
 
 .play-modal-message {
+  font-family: "Lato", sans-serif;
   font-size: 1.3rem;
   line-height: 1.6;
   width: 80%;
@@ -559,32 +594,20 @@ img {
 .play-modal-score {
   text-transform: uppercase;
   text-align: center;
-  font-family: 'Black Ops One', sans-serif;
-  font-size: 1.2rem;
-  letter-spacing: undefined;
-  color: #ffffff;
 }
 
 .play-modal-button {
-  text-align: center;
-  text-transform: uppercase;
-  background-color: #cfcfcf;
-  border: 2px solid #000000;
-  background-color: darkgreen;
-  color: #ffffff;
-  border-radius: 1rem;
   display: block;
-  width: 10rem;
   margin: 2rem auto;
-  padding: 0.3rem 0;
-  font-family: "Black Ops One", sans-serif;
-  font-size: 1.3rem;
 }
 
 .footer {
   text-align: center;
-  padding: 0.2rem 0;
+  padding: 0.5rem 0;
   background-color: #ffffff;
-  font-family: "Black Ops One", sans-serif;
+  font-family: 'Black Ops One', sans-serif;
+  font-size: 1rem;
+  letter-spacing: undefined;
+  color: #070707;
 }
 /*# sourceMappingURL=main.css.map */
