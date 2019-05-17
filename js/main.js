@@ -15,30 +15,51 @@ const warApp = {
 
   computer: {
     // an array of possible computer names that the player will face at random
-    possibleNames: ['General Harry Hearts', 'Colonel Amy Aces', 'Admiral Denise Diamonds', 'Sergeant Spike Spades']
+    possibleNames: ['General Harry Hearts', 'Colonel Amy Aces', 'Admiral Denise Diamonds', 'Major Steven Spades']
   }
 };
 
 // init function for war app
 warApp.init = () => {
+  warApp.windowScroll();
   warApp.playerName();
   warApp.computerName();
   warApp.toggleRules();
   warApp.buildDeck();
   warApp.playCard();
   warApp.ceasefire();
-  warApp.playerScore();
   warApp.playAgain();
+}
+
+// prevents the user from scrolling until their name is filled out
+warApp.windowScroll = () => {
+  
+  // prevents user from scrolling until their name is filled out
+  // if (warApp.player.name) {
+  //   $('body').css('overflow', 'auto');
+  // } else {
+  //   $('body').css('overflow', 'hidden');
+  // }
 }
 
 // gets player name from input field
 warApp.playerName = () => {
   $('#header-about-form').on('submit', function(e){
     warApp.player.name = $('#header-about-form-input-name').val()
-
-    // update UI with player name
     $('#instructions-player-name').html(warApp.player.name);
     $('#play-player-name').html(warApp.player.name);
+
+    warApp.windowScroll();
+
+    // const re = /^[a-z ,.'-]+$/i;
+    // if (!re.test(name)){
+    //   warApp.player.name = $('#header-about-form-input-name').val()
+    //   console.log('valid');  
+    // } else {
+    //   console.log('invalid');
+    //   // $('#header-about-form-input-name').val('')
+    // }
+
     e.preventDefault();
   });
 };
@@ -130,7 +151,7 @@ warApp.cardCount = () => {
 
 warApp.playerScore = () => {
   //convert player score to string to add leading zeros
-  warApp.playerScoreString = warApp.player.score.toString().padStart(7, '0');
+  warApp.playerScoreString = warApp.player.score.toString().padStart(6, '0');
 
   // update the UI
   $('#play-player-area-info-score').html(warApp.playerScoreString)
@@ -151,15 +172,42 @@ warApp.battle = () => {
   const playerBattleImage = playerBattleCard.image,
         computerBattleImage = computerBattleCard.image;
 
-  console.log(`Player draws:`, playerBattleValue); 
-  console.log(`Computer draws:`, computerBattleValue);
+  // put the cards into the ui
+  $('.computer-card').html(`<img src=${computerBattleImage}>`);
+  $('.player-card').html(`<img src=${playerBattleImage}>`);
+
+  $('.card-flip-reverse').toggleClass('rotate');
+  $('.card-flip-forward').toggleClass('rotate');
+
+  // time out to return the cards to normal position
+  setTimeout(() => {
+    $('.card-flip-reverse').removeClass('rotate');
+    $('.card-flip-forward').removeClass('rotate');
+  }, 2000)
 
   // count the cards
   warApp.cardCount();
 
   // determines if the player wins or loses or war is to be declared
   if (playerBattleValue > computerBattleValue) {
-    console.log('win');
+    // show the ui message
+    setTimeout(() => {
+      $('.play-battle-message-text').html('WIN').fadeIn();
+      
+      setTimeout(() => {
+        $('.play-battle-message-text').fadeOut()
+        // enables buttons for play again
+        $('#play-player-area-controls-buttons-battle').removeAttr('disabled');
+        $('#play-player-area-controls-buttons-ceasefire').removeAttr('disabled');
+      }, 1000);
+    }, 1500);
+
+    // enables buttons for play again
+    $('#play-player-area-controls-buttons-battle').removeAttr('disabled');
+    $('#play-player-area-controls-buttons-ceasefire').removeAttr('disabled');
+
+    // removes camo background if war was declared 
+    $('.play').css('background', ``);
 
     // adds the cards to the players pile and updates the count
     warApp.playerCardPile = warApp.playerCardPile.concat([playerBattleCard, computerBattleCard]);
@@ -170,8 +218,6 @@ warApp.battle = () => {
     // updates the UI score
     warApp.playerScore()
 
-    console.log(`Player has ${warApp.playerCardPile.length} cards.  Player score: ${warApp.player.score}`)
-
     // count the cards
     warApp.cardCount();
 
@@ -181,7 +227,7 @@ warApp.battle = () => {
       warApp.warCardPile = [];
 
       // adds a score when the player wins a round of war
-      warApp.player.score =+ 1000;
+      warApp.player.score =+ 1500;
 
       // updates the UI score
       warApp.playerScore()
@@ -190,7 +236,20 @@ warApp.battle = () => {
       warApp.cardCount();
     }
   } else if (playerBattleValue < computerBattleValue) {
-    console.log('lose');
+    // show the ui message
+    setTimeout(() => {
+      $('.play-battle-message-text').html('LOSE').fadeIn();
+
+      setTimeout(() => { 
+        $('.play-battle-message-text').fadeOut() 
+        // enables buttons for play again
+        $('#play-player-area-controls-buttons-battle').removeAttr('disabled');
+        $('#play-player-area-controls-buttons-ceasefire').removeAttr('disabled');
+      }, 1000);
+    }, 1500);
+
+    // removes camo background if war was declared 
+    $('.play').css('background', ``);
 
     // adds the cards to the computers pile and updates the count
     warApp.computerCardPile = warApp.computerCardPile.concat([playerBattleCard, computerBattleCard])
@@ -203,50 +262,64 @@ warApp.battle = () => {
       // count the cards
       warApp.cardCount();
     }
-
-    console.log(`Player has ${warApp.playerCardPile.length} cards`)
   
   } else if (playerBattleValue === computerBattleValue) {
-    console.log('WAR!!!');
+    // change the background of the playing field
+    setTimeout(() =>{
+      $('.play').css('background', `linear-gradient(rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), url('../assets/camo.jpg')`);
+    }, 2800);
+
+    // show the ui message
+    setTimeout(() => {
+      $('.play-battle-message-text').html('WAR').fadeIn();
+
+      setTimeout(() => {
+        $('.play-battle-message-text').fadeOut()
+        // enables buttons for play again
+        $('#play-player-area-controls-buttons-battle').removeAttr('disabled');
+        $('#play-player-area-controls-buttons-ceasefire').removeAttr('disabled');
+      }, 1000);
+    }, 1500);
 
     // pushes the current cards to the empty war array
     warApp.warCardPile.push(playerBattleCard);
     warApp.warCardPile.push(computerBattleCard);
 
-    // splices off three cards off of each player and computer pile
-    const playerRemoved = warApp.playerCardPile.splice(0, 3),
-          computerRemoved = warApp.computerCardPile.splice(0, 3);
-
-    // count the cards
-    warApp.cardCount();
+    // splices off two cards off of each player and computer pile
+    const playerRemoved = warApp.playerCardPile.splice(0, 2),
+          computerRemoved = warApp.computerCardPile.splice(0, 2);
 
     // pushes the extra cards from either player/computer onto a war pile that either will win
     warApp.warCardPile = warApp.warCardPile.concat(playerRemoved, computerRemoved);
-
-    // goes to battle again
-    warApp.battle();
   };
 };
 
 // determine if the player or computer has won
 warApp.determineWin = () => {
   if (warApp.playerCardCount >= 36) {
-    console.log('YOU ARE VICTORIOUS');
+    warApp.gameMessage = `General, you have defeated the enemy forces. This is the best thing in life. To be able to crush your enemies, see them driven before you, and to hear the lamentation of the weak! We will rule the enemy nation with an iron fist and wipe out all others that oppose us.`
+
+    warApp.gameModal(`VICTORY!`)
+
   } else if (warApp.playerCardCount <= 16) {
-    console.log('Our forces have been depleted. They have won the war...');
+    warApp.gameMessage = `General, our forces have been depleted and you have lost many lives. You futile attempts to win have caused much suffering and grief. As a result of your failure, the highest powers have deemed that you are now demoted to the rank of Private.`
+
+    warApp.gameModal(`DEFEAT!`)
   };
 };
 
 // modal appears when game ends
-warApp.gameModal = (title, message) => {
+warApp.gameModal = (title) => {
   $('.play-modal').fadeIn();
 
   // disables buttons so user can't play game
   $('#play-player-area-controls-buttons-battle').attr('disabled', true);
   $('#play-player-area-controls-buttons-ceasefire').attr('disabled', true);
-
+  
+  // displays the appropriate message and title
   $('#play-modal-title').html(title);
-  $('#play-modal-message').html(message);
+  $('#play-modal-message').html(warApp.gameMessage);
+  $('#play-modal-score').html(warApp.playerScoreString);
 
 };
 
@@ -261,6 +334,10 @@ warApp.playCard = () => {
   $('#play-player-area-controls-buttons-battle').on('click', function (e) {
     warApp.battle();
 
+    // disables buttons so user can't spam buttons
+    $('#play-player-area-controls-buttons-battle').attr('disabled', true);
+    $('#play-player-area-controls-buttons-ceasefire').attr('disabled', true);
+
     e.preventDefault();
   });
 };
@@ -269,10 +346,9 @@ warApp.playCard = () => {
 warApp.ceasefire = () => {
   $('#play-player-area-controls-buttons-ceasefire').on('click', function (e) {
     
-    warApp.gameMessage = `General, you've called a ceasefire and made peace with the enemy.  Our two nations will work together to rebuild and attempt to prevent the atrocitiy of war from happening again. Your brilliant negotation and steadfast resolution to peace will usher forth an englightment in the world.`
+    warApp.gameMessage = `General, you've called a ceasefire and made peace. Our two nations will work together to rebuild and attempt to prevent the atrocitiy of war from happening again. Your brilliant negotation and steadfast resolution to peace will usher forth an englightment in the world.  As you know, there are truly no winners of war.`
     
-    warApp.gameModal('CEASEFIRE', warApp.gameMessage);
-    console.log(true);
+    warApp.gameModal('CEASEFIRE');
 
     e.preventDefault();
   });

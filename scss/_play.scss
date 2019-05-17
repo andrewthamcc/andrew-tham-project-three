@@ -3,38 +3,31 @@
   height: 100vh;
   background-color: $primary-color;
   color: #ffffff;
+  position: relative;
 
-  &-flex-container {
-    display: flex;
-    flex-direction: column;
-    
-    height: 100vh;
-    padding: 1.5rem 0;
-  }
+  // styles used for when the background image changes during war
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 
   // player area and computer area take up each 50% of the 100vh 
   &-computer-area,
   &-player-area {
-    height: 50%;
+    height: 50vh;
     text-align: center;
 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 
-    padding: 0.5rem 0;
-  }
-
-  // fix this later
-  img {
-    width: 7rem;
-    margin: 0 auto;
+    padding: 1rem 0;
   }
 
   // computer info
   &-computer-area-info {
     display: flex;
     justify-content: center;
+    margin-bottom: 1rem;
 
     &-count,
     &-name,
@@ -46,7 +39,7 @@
   // player buttons
   &-player-area-controls-buttons button {
     width: 10rem;
-    margin: 2rem 0.5rem 2rem;
+    margin: 1rem 0.5rem;
     text-transform: uppercase;
 
     font-family: "Black Ops One", sans-serif;
@@ -101,6 +94,57 @@
   }
 }
 
+// card flip
+.card-flip {
+  width: 6.5rem;
+  height: auto;
+  margin: 0 auto;
+  perspective: 1000px;
+
+  &-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+  }
+
+  &-forward.rotate {
+      transform: rotateY(180deg);
+  }
+
+  &-reverse.rotate {
+    transform: rotateY(-180deg);
+  }
+
+  &-front,
+  &-back {
+    width: 100%;
+    top: 0;
+    height: 100%;
+    backface-visibility: hidden;
+  }  
+
+  &-back {
+    position: absolute;
+    transform: rotateY(180deg);
+  }
+}
+
+.play-battle-message-text {
+  display: none;
+  position: absolute;
+  text-align: center;
+  top: calc(50% - 5rem);
+  left: -5rem;
+  z-index: 999;
+  height: 100%;
+  width: 100%;
+  transform: rotate(20deg);
+
+  @include blackops(10rem, #000000, undefined);
+}
+
 // modal pop up for game ending
 .play-modal {
   display: none;
@@ -117,7 +161,7 @@
     background-color: #544;
     width: 80%;
     margin: 5% auto;
-    padding: 2rem;
+    padding: 2rem 0;
   }
 
   &-title {

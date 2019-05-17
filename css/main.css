@@ -206,8 +206,8 @@ img {
 }
 
 .header {
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 100, 0, 0.7)), to(rgba(0, 100, 0, 0.7))), url("../assets/green-army-men-1.jpg");
-  background: linear-gradient(rgba(0, 100, 0, 0.7), rgba(0, 100, 0, 0.7)), url("../assets/green-army-men-1.jpg");
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 100, 0, 0.7)), to(rgba(0, 100, 0, 0.7))), url("../assets/green-army-men.jpg");
+  background: linear-gradient(rgba(0, 100, 0, 0.7), rgba(0, 100, 0, 0.7)), url("../assets/green-army-men.jpg");
   background-position: center;
   background-size: cover;
   background-position: center;
@@ -372,22 +372,14 @@ img {
   height: 100vh;
   background-color: darkgreen;
   color: #ffffff;
-}
-
-.play-flex-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  height: 100vh;
-  padding: 1.5rem 0;
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .play-computer-area, .play-player-area {
-  height: 50%;
+  height: 50vh;
   text-align: center;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -399,12 +391,7 @@ img {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 0.5rem 0;
-}
-
-.play img {
-  width: 7rem;
-  margin: 0 auto;
+  padding: 1rem 0;
 }
 
 .play-computer-area-info {
@@ -414,6 +401,7 @@ img {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  margin-bottom: 1rem;
 }
 
 .play-computer-area-info-count, .play-computer-area-info-name, .play-computer-area-info-empty {
@@ -422,7 +410,7 @@ img {
 
 .play-player-area-controls-buttons button {
   width: 10rem;
-  margin: 2rem 0.5rem 2rem;
+  margin: 1rem 0.5rem;
   text-transform: uppercase;
   font-family: "Black Ops One", sans-serif;
   font-size: 1.3rem;
@@ -473,6 +461,67 @@ img {
   font-weight: 700;
 }
 
+.card-flip {
+  width: 6.5rem;
+  height: auto;
+  margin: 0 auto;
+  -webkit-perspective: 1000px;
+          perspective: 1000px;
+}
+
+.card-flip-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  -webkit-transition: -webkit-transform 1s;
+  transition: -webkit-transform 1s;
+  transition: transform 1s;
+  transition: transform 1s, -webkit-transform 1s;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+}
+
+.card-flip-forward.rotate {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+}
+
+.card-flip-reverse.rotate {
+  -webkit-transform: rotateY(-180deg);
+          transform: rotateY(-180deg);
+}
+
+.card-flip-front, .card-flip-back {
+  width: 100%;
+  top: 0;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+}
+
+.card-flip-back {
+  position: absolute;
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+}
+
+.play-battle-message-text {
+  display: none;
+  position: absolute;
+  text-align: center;
+  top: calc(50% - 5rem);
+  left: -5rem;
+  z-index: 999;
+  height: 100%;
+  width: 100%;
+  -webkit-transform: rotate(20deg);
+          transform: rotate(20deg);
+  font-family: 'Black Ops One', sans-serif;
+  font-size: 10rem;
+  letter-spacing: undefined;
+  color: #000000;
+}
+
 .play-modal {
   display: none;
   position: fixed;
@@ -489,7 +538,7 @@ img {
   background-color: #544;
   width: 80%;
   margin: 5% auto;
-  padding: 2rem;
+  padding: 2rem 0;
 }
 
 .play-modal-title {

@@ -15,15 +15,3 @@ War Happens:
 6. Win/Lose
 7. War button removed
 8. Buttons appear
-
-Ceasefire:
-1. Buttons are disabled
-2. Modal appears congratulating user on choosing peace
-3. Score given 
-4. Ask if they'd like to play again
-
-Win/Lose:
-1. Buttons disabled
-2. Modal appears with message 
-3. Score given
-4. Ask if they'd like to play again
