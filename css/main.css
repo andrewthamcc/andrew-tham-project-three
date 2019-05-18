@@ -257,7 +257,7 @@ img {
 
 .header-title {
   font-family: 'Black Ops One', sans-serif;
-  font-size: 15rem;
+  font-size: 12rem;
   letter-spacing: 1.5rem;
   color: #FFFFFF;
 }
@@ -266,6 +266,7 @@ img {
   text-align: center;
   font-size: 2rem;
   font-weight: 700;
+  margin-top: 1rem;
   color: #FFFFFF;
   text-shadow: 2px 2px #070707;
 }
@@ -305,7 +306,7 @@ img {
 
 .header-skip-arrow {
   display: none;
-  margin-top: 4rem;
+  margin-top: 2rem;
 }
 
 .header-modal {
@@ -340,8 +341,58 @@ img {
   padding: 2rem 0;
 }
 
+@media (max-width: 930px) {
+  .header-about-text {
+    font-size: 1.5rem;
+  }
+  .header-modal-text {
+    width: 60%;
+  }
+}
+
+@media (max-width: 750px) {
+  .header-title {
+    font-size: 8rem;
+  }
+  .header-about-text {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .header-title {
+    font-size: 5rem;
+  }
+  .header-about-text {
+    font-size: 1rem;
+    margin-top: 2rem;
+  }
+  .header-modal-text {
+    width: 70%;
+  }
+}
+
+@media (max-width: 475px) {
+  .header-modal-text {
+    width: 80%;
+  }
+}
+
+@media (max-width: 400px) {
+  .header-title {
+    letter-spacing: 0;
+  }
+  .header-about-form-input-name {
+    width: 14rem;
+  }
+  .header-modal-text {
+    width: 90%;
+    font-size: 1.5rem;
+  }
+}
+
 .instructions {
-  padding: 2rem 0;
+  padding: 1rem 0;
   height: 100vh;
   background-image: url("../assets/cards.png");
   background-repeat: no-repeat;
@@ -357,8 +408,8 @@ img {
 }
 
 .instructions-image {
-  -ms-flex-preferred-size: 40%;
-      flex-basis: 40%;
+  -ms-flex-preferred-size: 35%;
+      flex-basis: 35%;
   width: 35%;
 }
 
@@ -403,8 +454,64 @@ img {
   font-weight: 700;
 }
 
+@media (max-width: 1074px) {
+  .instructions-text {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 1000px) {
+  .instructions {
+    height: 100%;
+  }
+  .instructions-image {
+    -ms-flex-preferred-size: 30%;
+        flex-basis: 30%;
+    width: 30%;
+  }
+  .instructions-rules-list {
+    width: 100%;
+  }
+}
+
+@media (max-width: 800px) {
+  .instructions-button {
+    display: block;
+  }
+  .instructions-text {
+    text-align: center;
+  }
+  .instructions-text-fun, .instructions-text-plain {
+    text-align: left;
+  }
+}
+
+@media (max-width: 710px) {
+  .instructions {
+    padding: 2rem 0;
+  }
+  .instructions-image {
+    display: none;
+  }
+  .instructions-text {
+    width: 100%;
+    -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+    padding: 0;
+  }
+  .instructions-button {
+    display: inline-block;
+  }
+}
+
+@media (max-width: 475px) {
+  .instructions-text {
+    font-size: 1rem;
+    line-height: 1.4rem;
+  }
+}
+
 .play {
-  height: 100vh;
   background-color: darkgreen;
   color: #ffffff;
   position: relative;
@@ -415,7 +522,6 @@ img {
 }
 
 .play-computer-area, .play-player-area {
-  height: 50vh;
   text-align: center;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -450,7 +556,7 @@ img {
 }
 
 .play-player-area-controls-buttons {
-  margin: 1rem 0.5rem;
+  margin: 1rem;
 }
 
 .play-player-area-controls-buttons-battle.disabled, .play-player-area-controls-buttons-ceasefire.disabled {
@@ -499,15 +605,14 @@ img {
   display: none;
   position: absolute;
   text-align: center;
-  top: calc(50% - 5rem);
-  left: -5rem;
+  top: calc(50% - 6rem);
+  left: calc(50% - 12rem);
+  width: 22.5rem;
   z-index: 999;
-  height: 100%;
-  width: 100%;
   -webkit-transform: rotate(20deg);
           transform: rotate(20deg);
   font-family: 'Black Ops One', sans-serif;
-  font-size: 10rem;
+  font-size: 8rem;
   letter-spacing: undefined;
   color: #000000;
 }
@@ -572,7 +677,7 @@ img {
   background-color: #544;
   width: 80%;
   margin: 2% auto;
-  padding: 2rem 0;
+  padding: 1rem 0;
 }
 
 .play-modal-title {
@@ -599,6 +704,130 @@ img {
 .play-modal-button {
   display: block;
   margin: 2rem auto;
+}
+
+@media (max-width: 1310px) {
+  .play-computer-area-info-count, .play-computer-area-info-empty {
+    width: 25%;
+    font-size: 1rem;
+  }
+  .play-computer-area-info-name {
+    width: 50%;
+  }
+  .play-player-area-controls-info-score, .play-player-area-controls-info-count {
+    width: 25%;
+    font-size: 1rem;
+  }
+  .play-player-area-controls-info-name {
+    width: 50%;
+  }
+}
+
+@media (max-width: 905px) {
+  .play-modal-text {
+    padding: 0.5rem 0;
+  }
+  .play-modal-title {
+    font-size: 3.5rem;
+  }
+  .play-modal-message, .play-modal-button {
+    margin: 1rem auto;
+  }
+}
+
+@media (max-width: 745px) {
+  .play-computer-area-info-name,
+  .play-player-area-controls-info-name {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 650px) {
+  .play-computer-area-info,
+  .play-player-area-controls-info {
+    font-size: 1.3rem;
+  }
+  .play-computer-area-info-name,
+  .play-player-area-controls-info-name {
+    font-size: 1.3rem;
+  }
+  .play-computer-area-info-count, .play-computer-area-info-score,
+  .play-player-area-controls-info-count,
+  .play-player-area-controls-info-score {
+    font-size: 0.8rem;
+  }
+  .play-computer-area-info {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .play-computer-area-info-name, .play-computer-area-info-count {
+    width: 100%;
+  }
+  .play-computer-area-info-name {
+    -webkit-box-ordinal-group: 0;
+        -ms-flex-order: -1;
+            order: -1;
+  }
+  .play-computer-area-info-empty {
+    display: none;
+  }
+  .play-player-area-controls-info {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+  .play-player-area-controls-info-name, .play-player-area-controls-info-count, .play-player-area-controls-info-score {
+    width: 100%;
+    -ms-flex-preferred-size: 100%;
+        flex-basis: 100%;
+  }
+  .play-player-area-controls-info-name {
+    -webkit-box-ordinal-group: 0;
+        -ms-flex-order: -1;
+            order: -1;
+  }
+  .play-player-area-controls-info-empty {
+    display: none;
+  }
+  .play-player-area-controls-buttons button {
+    margin: 0.25rem 0;
+    width: 9rem;
+  }
+  .card-flip {
+    width: 4rem;
+  }
+  .play-modal-title {
+    font-size: 2rem;
+  }
+  .play-modal-message {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+}
+
+@media (max-width: 500px) {
+  .play-battle-message-text {
+    font-size: 5rem;
+    width: 15rem;
+    left: calc(50% - 8rem);
+  }
+}
+
+@media (max-width: 400px) {
+  .play-modal-message {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 350px) {
+  .play-battle-message-text {
+    font-size: 4rem;
+    width: 12rem;
+    left: calc(50% - 6rem);
+  }
 }
 
 .footer {

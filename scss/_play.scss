@@ -1,6 +1,5 @@
 // play area
 .play {
-  height: 100vh;
   background-color: $primary-color;
   color: #ffffff;
   position: relative;
@@ -12,10 +11,8 @@
   background-size: cover;
   background-repeat: no-repeat;
 
-  // player area and computer area take up each 50% of the 100vh 
   &-computer-area,
   &-player-area {
-    height: 50vh;
     text-align: center;
 
     display: flex;
@@ -45,7 +42,7 @@
 
   // player buttons
   &-player-area-controls-buttons {
-    margin: 1rem 0.5rem;
+    margin: 1rem;
 
     // buttons grey out when disabled during gameplay
     &-battle,
@@ -99,14 +96,13 @@
     display: none;
     position: absolute;
     text-align: center;
-    top: calc(50% - 5rem);
-    left: -5rem;
+    top: calc(50% - 6rem);
+    left: calc(50% - 12rem);
+    width: 22.5rem;
     z-index: 999;
-    height: 100%;
-    width: 100%;
     transform: rotate(20deg);
   
-    @include blackops(10rem, #000000, undefined);
+    @include blackops(8rem, #000000, undefined);
   }
 }
 
@@ -164,7 +160,7 @@
     background-color: #544;
     width: 80%;
     margin: 2% auto;
-    padding: 2rem 0;
+    padding: 1rem 0;
   }
 
   &-title {
@@ -191,5 +187,149 @@
   &-button {
     display: block;
     margin: 2rem auto;
+  }
+}
+
+@media (max-width: 1310px) {
+  .play-computer-area-info{
+    &-count,
+    &-empty {
+      width: 25%;
+      font-size: 1rem;
+    }
+
+    &-name {
+      width: 50%;
+    }
+  }
+
+  .play-player-area-controls-info {
+    &-score,
+    &-count {
+      width: 25%;
+      font-size: 1rem;
+    }
+
+    &-name {
+      width: 50%;
+    }
+  }
+}
+
+@media (max-width: 905px) {
+  .play-modal {
+    &-text {
+      padding: 0.5rem 0;
+    }
+
+    &-title {
+      font-size: 3.5rem;
+    }
+
+    &-message,
+    &-button {
+      margin: 1rem auto;
+    }
+  }
+}
+
+@media (max-width: 745px) {
+  .play-computer-area-info-name,
+  .play-player-area-controls-info-name {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 650px) {
+  .play-computer-area-info,
+  .play-player-area-controls-info {
+    font-size: 1.3rem;
+
+    &-name {
+      font-size: 1.3rem;
+    }
+
+    &-count,
+    &-score {
+      font-size: 0.8rem;
+    }
+  }
+
+  .play-computer-area-info {
+    flex-direction: column;
+
+    &-name,
+    &-count {
+      width: 100%;
+    }
+
+    &-name {
+      order: -1;
+    }
+
+    &-empty {
+      display: none;
+    }
+  }
+
+  .play-player-area-controls-info {
+    flex-direction: column;
+
+    &-name,
+    &-count,
+    &-score {
+      width: 100%;
+      flex-basis: 100%;
+    }
+
+    &-name {
+      order: -1;
+    }
+
+    &-empty {
+      display: none;
+    }
+  }
+
+  .play-player-area-controls-buttons button {
+    margin: 0.25rem 0;
+    width: 9rem;
+  }
+
+  .card-flip {
+    width: 4rem;
+  }
+
+  .play-modal {
+    &-title {
+      font-size: 2rem;
+    }
+
+    &-message {
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .play-battle-message-text {
+    font-size: 5rem;
+    width: 15rem;
+    left: calc(50% - 8rem);
+  }
+}
+
+@media (max-width: 400px) {
+  .play-modal-message {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 350px) {
+  .play-battle-message-text {
+    font-size: 4rem;
+    width: 12rem;
+    left: calc(50% - 6rem);
   }
 }

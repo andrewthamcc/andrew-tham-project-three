@@ -1,5 +1,5 @@
 .instructions {
-  padding: 2rem 0;
+  padding: 1rem 0;
   height: 100vh;
 
   background-image: url('../assets/cards.png');
@@ -13,7 +13,7 @@
   }
 
   &-image {
-    flex-basis: 40%;
+    flex-basis: 35%;
     width: 35%;
   }
 
@@ -59,4 +59,72 @@
   color: $primary-color;
   text-transform: uppercase;
   font-weight: 700;
+}
+
+@media (max-width: 1074px) {
+  .instructions-text {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 1000px) {
+  .instructions {
+    height: 100%;
+
+    &-image {
+      flex-basis: 30%;
+      width: 30%;
+    }
+
+    &-rules-list {
+      width: 100%;
+    }
+  }
+}
+
+@media (max-width: 800px) {
+  .instructions {
+    &-button {
+      display: block;
+    }
+
+    &-text {
+      text-align: center;
+    
+      &-fun,
+      &-plain {
+        text-align: left;
+      }
+    }
+  }
+}
+
+@media (max-width: 710px) {
+  .instructions {
+    padding: 2rem 0;
+
+    &-image {
+      display: none;
+    }
+
+    &-text {
+      width: 100%;
+      flex-basis: 100%;
+
+      padding: 0;
+    }
+
+    &-button {
+      display: inline-block;
+    }
+  }
+}
+
+@media (max-width: 475px) {
+  .instructions {
+    &-text {
+      font-size: 1rem;
+      line-height: 1.4rem;
+    }
+  }
 }

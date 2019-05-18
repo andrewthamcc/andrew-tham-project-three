@@ -4,3 +4,4 @@ War Happens:
 Buttons: 
 - clean up CSS
 - go through js
+- name space jquery selectors

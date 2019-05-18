@@ -22,6 +22,10 @@ const warApp = {
 
 // init function for war app
 warApp.init = () => {
+  // cache of jquery selectors
+  warApp.battleButton = $('.play-player-area-controls-buttons-battle');
+  warApp.ceasefireButton = $('.play-player-area-controls-buttons-ceasefire');
+  
   warApp.windowScroll();
   warApp.playerName();
   warApp.computerName();
@@ -201,10 +205,8 @@ warApp.battle = () => {
       setTimeout(() => {
         $('.play-battle-message-text').fadeOut()
         // enables buttons for play again
-        $('.play-player-area-controls-buttons-battle').removeAttr('disabled');
-        $('.play-player-area-controls-buttons-ceasefire').removeAttr('disabled');
-        $('.play-player-area-controls-buttons-battle').removeClass('disabled');
-        $('.play-player-area-controls-buttons-ceasefire').removeClass('disabled');
+        warApp.battleButton.removeAttr('disabled').removeClass('disabled');
+        warApp.ceasefireButton.removeAttr('disabled').removeClass('disabled');
       }, 1000);
     }, 1500);
 
@@ -245,10 +247,8 @@ warApp.battle = () => {
       setTimeout(() => { 
         $('.play-battle-message-text').fadeOut() 
         // enables buttons for play again
-        $('.play-player-area-controls-buttons-battle').removeAttr('disabled');
-        $('.play-player-area-controls-buttons-ceasefire').removeAttr('disabled');
-        $('.play-player-area-controls-buttons-battle').removeClass('disabled');
-        $('.play-player-area-controls-buttons-ceasefire').removeClass('disabled');
+        warApp.battleButton.removeAttr('disabled').removeClass('disabled');
+        warApp.ceasefireButton.removeAttr('disabled').removeClass('disabled');
       }, 1000);
     }, 1500);
 
@@ -281,10 +281,8 @@ warApp.battle = () => {
       setTimeout(() => {
         $('.play-battle-message-text').fadeOut()
         // enables buttons for play again
-        $('.play-player-area-controls-buttons-battle').removeAttr('disabled');
-        $('.play-player-area-controls-buttons-ceasefire').removeAttr('disabled');
-        $('.play-player-area-controls-buttons-battle').removeClass('disabled');
-        $('.play-player-area-controls-buttons-ceasefire').removeClass('disabled');
+        warApp.battleButton.removeAttr('disabled').removeClass('disabled');
+        warApp.ceasefireButton.removeAttr('disabled').removeClass('disabled');
       }, 1000);
     }, 1500);
 
@@ -320,10 +318,8 @@ warApp.gameModal = (title) => {
   $('.play-modal').fadeIn();
 
   // disables buttons and greys them out so user can't play game
-  $('.play-player-area-controls-buttons-battle').attr('disabled', true);
-  $('.play-player-area-controls-buttons-ceasefire').attr('disabled', true);
-  $('.play-player-area-controls-buttons-battle').addClass('disabled');
-  $('.play-player-area-controls-buttons-ceasefire').addClass('disabled');
+  warApp.battleButton.attr('disabled', true).addClass('disabled');
+  warApp.ceasefireButton.attr('disabled', true).addClass('disabled');
 
   // displays the appropriate message and title
   $('#play-modal-title').html(title);
@@ -340,14 +336,11 @@ warApp.playAgain = () => {
 
 // calls the battle function when the user plays a card
 warApp.playCard = () => {
-  $('.play-player-area-controls-buttons-battle').on('click', function (e) {
+  warApp.battleButton.on('click', function (e) {    
     warApp.battle();
 
-    // disables buttons so user can't spam buttons
-    $('.play-player-area-controls-buttons-battle').attr('disabled', true);
-    $('.play-player-area-controls-buttons-ceasefire').attr('disabled', true);
-    $('.play-player-area-controls-buttons-battle').addClass('disabled');
-    $('.play-player-area-controls-buttons-ceasefire').addClass('disabled');
+    warApp.battleButton.attr('disabled', true).addClass('disabled');
+    warApp.ceasefireButton.attr('disabled', true).addClass('disabled');
 
     e.preventDefault();
   });
@@ -355,8 +348,9 @@ warApp.playCard = () => {
 
 // calls for ceasefire
 warApp.ceasefire = () => {
-  $('.play-player-area-controls-buttons-ceasefire').on('click', function (e) {
-    
+  warApp.ceasefireButton.on('click', function (e) {
+    console.log(true);
+
     warApp.gameMessage = `General, you've called a ceasefire and made peace. Our two nations will work together to rebuild and attempt to prevent the atrocitiy of war from happening again. Your brilliant negotation and steadfast resolution to peace will usher forth an englightment in the world.  As you know, there are truly no winners of war.`
     
     warApp.gameModal('CEASEFIRE');
