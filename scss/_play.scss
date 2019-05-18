@@ -30,7 +30,7 @@
 
     &-count,
     &-name,
-    &-empty {
+    &-message {
       width: calc(100% / 3);
     }
 
@@ -189,7 +189,7 @@
 @media (max-width: 1310px) {
   .play-computer-area-info{
     &-count,
-    &-empty {
+    &-message {
       width: 25%;
       font-size: 1rem;
     }
@@ -255,7 +255,8 @@
     flex-direction: column;
 
     &-name,
-    &-count {
+    &-count,
+    &-message {
       width: 100%;
     }
 
@@ -263,7 +264,7 @@
       order: -1;
     }
 
-    &-empty {
+    &-message {
       display: none;
     }
   }
@@ -281,7 +282,7 @@
       order: -1;
     }
 
-    &-empty {
+    &-message {
       display: none;
     }
   }

@@ -1,7 +1,0 @@
-Buttons: 
-- go through js
-
-Gameplay: 
-- fix card count?
-- fix when determine winner (should be after win/lose disappears)
-- have a game message on win or lose from computer

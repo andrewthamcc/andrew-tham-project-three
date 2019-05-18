@@ -15,10 +15,10 @@ const warApp = {
 
   computer: {
     // an array of possible computer names that the player will face at random
-    possibleNames: ['General Harry Hearts', 'Colonel Amy Aces', 'Admiral Denise Diamonds', 'Major Steven Spades'],
+    possibleNames: ['Gen. Harry Hearts', 'Col. Amy Aces', 'Adm. Denise Diamonds', 'Maj. Steven Spades'],
     possiblePhrases: {
-      win: [`Muahahahaha`, `Feel my wrath`, `You don't stand a chance`, `The end is near`, `Aren't you scared?`],
-      lose: [`I'll be back`, `Stronger than I thought`, `Lucky`, `I'll never give up`, `You call that a win?`]}
+      win: [`Muahahahaha`, `Feel my wrath`, `You don't stand a chance`, `The end is near`, `Aren't you scared?`, `That must hurt`, `You should quit`],
+      lose: [`I'll be back`, `Stronger than I thought`, `Dumb luck`, `I'll never give up`, `You call that a win?`, `You'll regret that`, `It's not over`]}
   }
 };
 
@@ -49,6 +49,7 @@ warApp.init = () => {
   warApp.cardForwardImage = $('.card-flip-forward');
 
   warApp.battleMessage = $('.play-battle-message-text');
+  warApp.computerMessageOutput = $('.play-computer-area-info-message');
   warApp.playingField = $('.play');
   
   warApp.windowScroll();
@@ -215,6 +216,10 @@ warApp.battle = () => {
     // show the win message
     setTimeout(() => {
       warApp.battleMessage.html('WIN').fadeIn();
+
+      // gets a random taunt from the computer and outputs to UI
+      warApp.computer.phrase = warApp.computer.possiblePhrases.lose[Math.floor(Math.random() * warApp.computer.possiblePhrases.lose.length)];
+      warApp.computerMessageOutput.html(`"${warApp.computer.phrase}"`);
       
       setTimeout(() => {
         warApp.battleMessage.fadeOut()
@@ -258,6 +263,10 @@ warApp.battle = () => {
     // show the lose message
     setTimeout(() => {
       warApp.battleMessage.html('LOSE').fadeIn();
+
+      // gets a random taunt from the computer and outputs to UI
+      warApp.computer.phrase = warApp.computer.possiblePhrases.win[Math.floor(Math.random() * warApp.computer.possiblePhrases.win.length)];
+      warApp.computerMessageOutput.html(`"${warApp.computer.phrase}"`);
 
       setTimeout(() => { 
         warApp.battleMessage.fadeOut() 
@@ -375,8 +384,6 @@ warApp.playAgain = () => {
 // calls for ceasefire
 warApp.ceasefire = () => {
   warApp.ceasefireButton.on('click', function (e) {
-    console.log(true);
-
     warApp.gameMessage = `General, you've called a ceasefire and made peace. Our two nations will work together to rebuild and attempt to prevent the atrocitiy of war from happening again. Your brilliant negotation and steadfast resolution to peace will usher forth an englightment in the world.  As you know, there are truly no winners of war.`
     
     warApp.gameModal('CEASEFIRE');

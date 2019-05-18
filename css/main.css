@@ -308,7 +308,7 @@ img {
 
 .header-skip-arrow {
   display: none;
-  margin-top: 2rem;
+  margin-top: 0.5rem;
 }
 
 .header-modal {
@@ -534,7 +534,7 @@ img {
   margin-bottom: 1rem;
 }
 
-.play-computer-area-info-count, .play-computer-area-info-name, .play-computer-area-info-empty {
+.play-computer-area-info-count, .play-computer-area-info-name, .play-computer-area-info-message {
   width: calc(100% / 3);
 }
 
@@ -686,7 +686,7 @@ img {
 }
 
 @media (max-width: 1310px) {
-  .play-computer-area-info-count, .play-computer-area-info-empty {
+  .play-computer-area-info-count, .play-computer-area-info-message {
     width: 25%;
     font-size: 1rem;
   }
@@ -741,7 +741,7 @@ img {
         -ms-flex-direction: column;
             flex-direction: column;
   }
-  .play-computer-area-info-name, .play-computer-area-info-count {
+  .play-computer-area-info-name, .play-computer-area-info-count, .play-computer-area-info-message {
     width: 100%;
   }
   .play-computer-area-info-name {
@@ -749,7 +749,7 @@ img {
         -ms-flex-order: -1;
             order: -1;
   }
-  .play-computer-area-info-empty {
+  .play-computer-area-info-message {
     display: none;
   }
   .play-player-area-controls-info {
@@ -766,7 +766,7 @@ img {
         -ms-flex-order: -1;
             order: -1;
   }
-  .play-player-area-controls-info-empty {
+  .play-player-area-controls-info-message {
     display: none;
   }
   .play-player-area-controls-buttons button {
