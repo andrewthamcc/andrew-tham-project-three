@@ -10,12 +10,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    height: 100vh;
   }
 
   &-title {
     @include blackops(12rem, #FFFFFF, 1.5rem);
+    text-shadow: 3px 3px $secondary-color;
   }
 
   &-about-text {
@@ -35,7 +34,7 @@
 
     &-input-name {
       text-align: center;
-      background-color: #FFFFFF;
+      background-color: #FAFAFA;
       border: 2px solid $secondary-color;
       border-radius: 1rem;
 
@@ -44,8 +43,7 @@
       margin: 1rem auto;
       padding: 0.3rem 0;
 
-      font-family: "Black Ops One", sans-serif;
-      font-size: 1.3rem;
+      @include blackops(1.3rem, undefined, 0.3rem);
     }
 
     &-submit {
@@ -53,12 +51,13 @@
     }
   }
 
+  // skip arrow appears only after user fills out their name
   &-skip-arrow {
     display: none;
     margin-top: 2rem;
   }
   
-  // modal pop up name entry
+  // modal pop up for invalid name
   &-modal {
     display: none;
     position: fixed;
@@ -68,12 +67,6 @@
     height: 100%;
     width: 100%;
     background-color: rgba(255, 0, 0, 0.7);
-  
-    &-close {
-      float: right;
-      font-size: 2rem;
-      font-weight: 700;
-    }
   
     &-text {
       background-color: $secondary-color;

@@ -1,7 +1,7 @@
-War Happens:
-- show reinforement cards
-
 Buttons: 
-- clean up CSS
 - go through js
-- name space jquery selectors
+
+Gameplay: 
+- fix card count?
+- fix when determine winner (should be after win/lose disappears)
+- have a game message on win or lose from computer

@@ -4,7 +4,7 @@ const warApp = {
   deckSuits: ['SPADES', 'DIAMONDS', 'CLUBS', 'HEARTS'],
   deckValues: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
 
-  // instantiate an empty array for when war is declared
+  // empty array for when war is declared
   warCardPile: [],
 
   // player information
@@ -16,19 +16,43 @@ const warApp = {
   computer: {
     // an array of possible computer names that the player will face at random
     possibleNames: ['General Harry Hearts', 'Colonel Amy Aces', 'Admiral Denise Diamonds', 'Major Steven Spades'],
-    possiblePhrases: ['']
+    possiblePhrases: {
+      win: [`Muahahahaha`, `Feel my wrath`, `You don't stand a chance`, `The end is near`, `Aren't you scared?`],
+      lose: [`I'll be back`, `Stronger than I thought`, `Lucky`, `I'll never give up`, `You call that a win?`]}
   }
 };
 
-// init function for war app
+// init function for app
 warApp.init = () => {
-  // cache of jquery selectors
+  // cahce of jquery selectors that can be called more than once
+  // header inputs and modal
+  warApp.nameInput = $('#header-about-form-input-name');
+  warApp.nameSubmit = $('.header-about-form');
+  warApp.headerModal = $('.header-modal');
+
+  // player controls and info
   warApp.battleButton = $('.play-player-area-controls-buttons-battle');
   warApp.ceasefireButton = $('.play-player-area-controls-buttons-ceasefire');
+  warApp.playerCountOutput = $('.play-player-area-controls-info-count-output');
+  warApp.computerCountOutput = $('.play-computer-area-info-count-output');
+  warApp.scoreOutput = $('.play-player-area-controls-info-score-output');
+
+  // instructions
+  warApp.instructionsButton = $('.instructions-button');
+  warApp.instructionsFun = $('.instructions-text-fun');
+  warApp.instructionsPlain = $('.instructions-text-plain');
+
+  // play cards
+  warApp.computerCardImageOutput = $('.computer-card');
+  warApp.playerCardImageOutput = $('.player-card');
+  warApp.cardReverseImage = $('.card-flip-reverse');
+  warApp.cardForwardImage = $('.card-flip-forward');
+
+  warApp.battleMessage = $('.play-battle-message-text');
+  warApp.playingField = $('.play');
   
   warApp.windowScroll();
   warApp.playerName();
-  warApp.computerName();
   warApp.toggleRules();
   warApp.buildDeck();
   warApp.playCard();
@@ -38,38 +62,46 @@ warApp.init = () => {
 
 // prevents the user from scrolling until their name is filled out
 warApp.windowScroll = () => {
-  // if the user refreshes the page mid game it does not lock the user to the screen
-  // if (window.pageYOffset === 0) {
-  //   $('body').css('overflow', 'hidden');
-  // }
+  // if the user refreshes the page mid game it does not lock the user to the screen unless at the top
+  if (window.pageYOffset === 0) {
+    $('body').css('overflow', 'hidden');
+  }
 }
 
 // gets player name from input field
 warApp.playerName = () => {
-  $('#header-about-form').on('submit', function(e){
-    warApp.player.name = $('#header-about-form-input-name').val()
+  warApp.nameSubmit.on('submit', function(e){
+    warApp.player.name = warApp.nameInput.val();
 
     // RegEx for validating name entry
-    const re = /^[a-z .-]+$/i;    
+    const re = /^[a-z.-]+$/i;    
     
+    // test for valid user name
     if (re.test(warApp.player.name)){
       // update the UI
-      $('#instructions-player-name').html(warApp.player.name);
-      $('#play-player-name').html(warApp.player.name);
+      $('.instructions-player-name').html(warApp.player.name);
+      $('.play-player-area-controls-info-name').html(warApp.player.name);
+
+      // gets a random computer name
+      warApp.computer.name = warApp.computer.possibleNames[Math.floor(Math.random() * warApp.computer.possibleNames.length)];
+
+      // update UI with computer name
+      $('.instructions-computer-name').html(warApp.computer.name);
+      $('.play-computer-name').html(warApp.computer.name);
 
       // enable scroll and show skip arrow
       $('body').css('overflow', 'auto');
       $('.header-skip-arrow').fadeIn();
     } else {
       // clear the input field
-      $('#header-about-form-input-name').val()
+      warApp.nameInput.val('');
 
       // display modal message
-      $('.header-modal').fadeIn();
+      warApp.headerModal.fadeIn();
 
       // click to close
       $('.header-modal-button').on('click', function(){
-        $('.header-modal').fadeOut()
+        warApp.headerModal.fadeOut()
       });
     }
 
@@ -77,35 +109,27 @@ warApp.playerName = () => {
   });
 };
 
-// gets random computer name
-warApp.computerName = () => {
-  warApp.computer.name = warApp.computer.possibleNames[Math.floor(Math.random() * warApp.computer.possibleNames.length)];
-
-  // update UI with computer name
-  $('#instructions-computer-name').html(warApp.computer.name);
-  $('#play-computer-name').html(warApp.computer.name);
-};
-
 // toggles the rules and button text
 warApp.toggleRules = () => {
-  $('.instructions-button').on('click', function(e){
+  warApp.instructionsButton.on('click', function(e){
     
-    $('.instructions-text-fun').toggleClass('instructions-hide');
-    $('.instructions-text-plain').toggleClass('instructions-show');
+    // toggle hiding and showing the instructions
+    warApp.instructionsFun = $('.instructions-text-fun').toggleClass('instructions-hide');
+    warApp.instructionsPlain = $('.instructions-text-plain').toggleClass('instructions-show');
 
+    // change the text within the button
     $(this).text(function (index, current) {
       return (current === 'Standard Rules') ? 'Fun Rules' : 'Standard Rules';
     })
-
   });
 };
 
-// https://www.thatsoftwaredude.com/content/6196/coding-a-card-deck-in-javascript
 // build the deck from the cards in order by looping through each array and matchig up items
+// https://www.thatsoftwaredude.com/content/6196/coding-a-card-deck-in-javascript
 warApp.buildDeck = () => {
   warApp.deckSuits.forEach((suit) => {
     warApp.deckValues.forEach((value) =>{
-      // each card is an object with an associated suit and value
+      // each card is an object with an associated suit, value and image
       card =  {
         suit: suit,
         value: value,
@@ -148,30 +172,19 @@ warApp.dealCards = () => {
   warApp.cardCount();
 };
 
-// updates UI for card count
-warApp.cardCount = () => {
-  // count the number of cards for both players
-  warApp.playerCardCount = warApp.playerCardPile.length;
-  warApp.computerCardCount = warApp.computerCardPile.length;
-
-  $('#play-player-area-info-count').html(warApp.playerCardCount);
-  $('#play-computer-area-info-count').html(warApp.computerCardCount);
-
-  // determines if the player has won or lost
-  warApp.determineWin();
-};
-
-warApp.playerScore = () => {
-  //convert player score to string to add leading zeros
-  warApp.playerScoreString = warApp.player.score.toString().padStart(6, '0');
-
-  // update the UI
-  $('#play-player-area-info-score').html(warApp.playerScoreString)
+// calls the battle function when the user plays a card
+warApp.playCard = () => {
+  warApp.battleButton.on('click', function (e) {
+    warApp.battle();
+  });
 };
 
 // battle function when playing cards
 warApp.battle = () => {
-  // play a user card
+  warApp.battleButton.attr('disabled', true).addClass('disabled');
+  warApp.ceasefireButton.attr('disabled', true).addClass('disabled');
+
+  // plays card from each deck
   const playerBattleCard = warApp.playerCardPile.shift(),
         computerBattleCard = warApp.computerCardPile.shift();
 
@@ -184,43 +197,44 @@ warApp.battle = () => {
         computerBattleImage = computerBattleCard.image;
 
   // put the cards into the ui
-  $('.computer-card').html(`<img src=${computerBattleImage}>`);
-  $('.player-card').html(`<img src=${playerBattleImage}>`);
+  warApp.computerCardImageOutput.html(`<img src=${computerBattleImage}>`);
+  warApp.playerCardImageOutput.html(`<img src=${playerBattleImage}>`);
 
-  $('.card-flip-reverse').addClass('rotate');
-  $('.card-flip-forward').addClass('rotate');
+  // rotates the cards to reveal values
+  warApp.cardReverseImage.addClass('rotate');
+  warApp.cardForwardImage.addClass('rotate');
 
   // time out to return the cards to normal position
   setTimeout(() => {
-    $('.card-flip-reverse').removeClass('rotate');
-    $('.card-flip-forward').removeClass('rotate');
+    warApp.cardReverseImage.removeClass('rotate');
+    warApp.cardForwardImage.removeClass('rotate');
   }, 2000)
 
   // determines if the player wins or loses or war is to be declared
   if (playerBattleValue > computerBattleValue) {
-    // show the ui message
+    // show the win message
     setTimeout(() => {
-      $('.play-battle-message-text').html('WIN').fadeIn();
+      warApp.battleMessage.html('WIN').fadeIn();
       
       setTimeout(() => {
-        $('.play-battle-message-text').fadeOut()
+        warApp.battleMessage.fadeOut()
         // enables buttons for play again
         warApp.battleButton.removeAttr('disabled').removeClass('disabled');
         warApp.ceasefireButton.removeAttr('disabled').removeClass('disabled');
+
+        // adds the cards to the players pile
+        warApp.playerCardPile = warApp.playerCardPile.concat([playerBattleCard, computerBattleCard]);
+
+        // adds to the player's score based on the card values*5 the player collects
+        warApp.player.score += (computerBattleValue * 5);
+
+        // updates the UI score
+        warApp.playerScore()
+
+        // count the cards
+        warApp.cardCount();
       }, 1000);
     }, 1500);
-
-    // count the cards
-    warApp.cardCount();
-
-    // adds the cards to the players pile and updates the count
-    warApp.playerCardPile = warApp.playerCardPile.concat([playerBattleCard, computerBattleCard]);
-    
-    // adds to the player's score based on the card values*5 the player collects
-    warApp.player.score += (computerBattleValue * 5);
-
-    // updates the UI score
-    warApp.playerScore()
 
     // adds cards to the pile if war was declared and won
     if (warApp.warCardPile.length > 0) {
@@ -236,27 +250,28 @@ warApp.battle = () => {
       // count the cards
       warApp.cardCount();
 
-      // removes camo background if war was declared 
-      $('.play').css('background', ``);
+      // removes camo background 
+      warApp.playingField.css('background', ``);
     }
+
   } else if (playerBattleValue < computerBattleValue) {
-    // show the ui message
+    // show the lose message
     setTimeout(() => {
-      $('.play-battle-message-text').html('LOSE').fadeIn();
+      warApp.battleMessage.html('LOSE').fadeIn();
 
       setTimeout(() => { 
-        $('.play-battle-message-text').fadeOut() 
+        warApp.battleMessage.fadeOut() 
         // enables buttons for play again
         warApp.battleButton.removeAttr('disabled').removeClass('disabled');
         warApp.ceasefireButton.removeAttr('disabled').removeClass('disabled');
+
+        // adds the cards to the computers pile and updates the count
+        warApp.computerCardPile = warApp.computerCardPile.concat([playerBattleCard, computerBattleCard])
+        warApp.cardCount();
       }, 1000);
     }, 1500);
 
-    // adds the cards to the computers pile and updates the count
-    warApp.computerCardPile = warApp.computerCardPile.concat([playerBattleCard, computerBattleCard])
-    warApp.cardCount();
-
-    // adds cards to the pile if war was declared and won
+    // adds cards to the pile if war was declared and won by the computer
     if (warApp.warCardPile.length > 0) {
       warApp.computerCardPile = warApp.computerCardPile.concat(warApp.warCardPile);
       warApp.warCardPile = [];
@@ -264,39 +279,62 @@ warApp.battle = () => {
       // count the cards
       warApp.cardCount();
 
-      // removes camo background if war was declared 
-      $('.play').css('background', ``);
+      // removes camo background
+      warApp.playingField.css('background', ``);
     }
   
   } else if (playerBattleValue === computerBattleValue) {
     // change the background of the playing field
     setTimeout(() =>{
-      $('.play').css('background', `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('./assets/camo.jpg')`);
+      warApp.playingField.css('background', `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('./assets/camo.jpg')`);
     }, 2800);
 
     // show the ui message
     setTimeout(() => {
-      $('.play-battle-message-text').html('WAR').fadeIn();
+      warApp.battleMessage.html('WAR').fadeIn();
 
       setTimeout(() => {
-        $('.play-battle-message-text').fadeOut()
+        warApp.battleMessage.fadeOut()
+
         // enables buttons for play again
         warApp.battleButton.removeAttr('disabled').removeClass('disabled');
         warApp.ceasefireButton.removeAttr('disabled').removeClass('disabled');
       }, 1000);
     }, 1500);
 
-    // pushes the current cards to the empty war array
+    // pushes the current played cards to the empty war array
     warApp.warCardPile.push(playerBattleCard);
     warApp.warCardPile.push(computerBattleCard);
 
-    // splices off two cards off of each player and computer pile
+    // splices off two extra cards off of each player and computer pile
     const playerRemoved = warApp.playerCardPile.splice(0, 2),
           computerRemoved = warApp.computerCardPile.splice(0, 2);
 
-    // pushes the extra cards from either player/computer onto a war pile that either will win
+    // pushes the extra cards from either player/computer onto the war pile that either will win
     warApp.warCardPile = warApp.warCardPile.concat(playerRemoved, computerRemoved);
   };
+};
+
+// updates UI for card count
+warApp.cardCount = () => {
+  // count the number of cards for both players
+  warApp.playerCardCount = warApp.playerCardPile.length;
+  warApp.computerCardCount = warApp.computerCardPile.length;
+
+  // updates the UI of forces remaining
+  warApp.playerCountOutput.html(warApp.playerCardCount);
+  warApp.computerCountOutput.html(warApp.computerCardCount);
+
+  // determines if the player has won or lost
+  warApp.determineWin();
+};
+
+warApp.playerScore = () => {
+  //convert player score to string to add leading zeros
+  warApp.playerScoreString = warApp.player.score.toString().padStart(6, '0');
+
+  // update the UI
+  warApp.scoreOutput.html(warApp.playerScoreString);
 };
 
 // determine if the player or computer has won
@@ -322,9 +360,9 @@ warApp.gameModal = (title) => {
   warApp.ceasefireButton.attr('disabled', true).addClass('disabled');
 
   // displays the appropriate message and title
-  $('#play-modal-title').html(title);
-  $('#play-modal-message').html(warApp.gameMessage);
-  $('#play-modal-score').html(warApp.playerScoreString);
+  $('.play-modal-title').html(title);
+  $('.play-modal-message').html(warApp.gameMessage);
+  $('.play-modal-score-output').html(warApp.playerScoreString);
 
 };
 
@@ -333,18 +371,6 @@ warApp.playAgain = () => {
     window.location.reload(true);
   });
 }
-
-// calls the battle function when the user plays a card
-warApp.playCard = () => {
-  warApp.battleButton.on('click', function (e) {    
-    warApp.battle();
-
-    warApp.battleButton.attr('disabled', true).addClass('disabled');
-    warApp.ceasefireButton.attr('disabled', true).addClass('disabled');
-
-    e.preventDefault();
-  });
-};
 
 // calls for ceasefire
 warApp.ceasefire = () => {

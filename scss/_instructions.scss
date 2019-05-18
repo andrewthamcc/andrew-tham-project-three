@@ -13,13 +13,11 @@
   }
 
   &-image {
-    flex-basis: 35%;
     width: 35%;
   }
 
   &-text {
-    flex-basis: 65%;
-    width: 60%;
+    width: 65%;
     padding-left: 1rem;
 
     font-size: 1.3rem;
@@ -31,6 +29,7 @@
     }
   }
 
+  // toggle clases for instructions
   &-show {
     display: block;
   }
@@ -48,18 +47,20 @@
     padding: 0.3rem 2rem;
   }
 
-  // styles for the rules list
+  // styles for the rules list to fit
   &-rules-list {
     width: 80%;
     padding-left: 1.5rem;
   }
+
+  &-computer-name {
+    color: $primary-color;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
 }
 
-.computer-name {
-  color: $primary-color;
-  text-transform: uppercase;
-  font-weight: 700;
-}
+
 
 @media (max-width: 1074px) {
   .instructions-text {
@@ -72,7 +73,6 @@
     height: 100%;
 
     &-image {
-      flex-basis: 30%;
       width: 30%;
     }
 
@@ -88,6 +88,7 @@
       display: block;
     }
 
+    // for proper alignment for skip button
     &-text {
       text-align: center;
     
@@ -109,7 +110,6 @@
 
     &-text {
       width: 100%;
-      flex-basis: 100%;
 
       padding: 0;
     }

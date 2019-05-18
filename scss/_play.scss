@@ -22,7 +22,7 @@
     padding: 1rem 0;
   }
 
-  // computer info
+  // computer display info
   &-computer-area-info {
     display: flex;
     justify-content: center;
@@ -44,7 +44,7 @@
   &-player-area-controls-buttons {
     margin: 1rem;
 
-    // buttons grey out when disabled during gameplay
+    // buttons gray out when disabled during gameplay
     &-battle,
     &-ceasefire {
       &.disabled {
@@ -76,22 +76,15 @@
 
   // player/computer text styling
   &-computer-area-info-count,
+   &-computer-area-info-name,
   &-player-area-controls-info-score,
-  &-player-area-controls-info-count {
-    @include blackops(1.2rem, #ffffff, undefined);
+  &-player-area-controls-info-count,
+  &-player-area-controls-info-name {
     text-transform: uppercase;
     letter-spacing: 0.2rem;
   }
 
-  // player/computer text styling
-  &-computer-area-info-name,
-  &-player-area-controls-info-name {
-    text-transform: uppercase;
-    letter-spacing: 0.1rem;
-    font-weight: 700;
-  }
-
-    // WIN, LOSE, WAR message
+    // WIN, LOSE, WAR message during gameplay
   &-battle-message-text {
     display: none;
     position: absolute;
@@ -102,11 +95,11 @@
     z-index: 999;
     transform: rotate(20deg);
   
-    @include blackops(8rem, #000000, undefined);
+    @include blackops(8rem, $secondary-color, undefined);
   }
 }
 
-// card flip styles/animation
+// card flip style/animation
 // tutorial from W3C
 .card-flip {
   width: 6.5rem;
@@ -122,6 +115,7 @@
     transform-style: preserve-3d;
   }
 
+  // rotation directions for cards
   &-forward.rotate {
       transform: rotateY(180deg);
   }
@@ -155,6 +149,8 @@
   width: 100%;
   background-color: rgba(0,0,0,0.7);
 
+  text-align: center;
+
   &-text {
     border-radius: 2rem;
     background-color: #544;
@@ -165,7 +161,6 @@
 
   &-title {
     text-transform: uppercase;
-    text-align: center;
     font-size: 5rem;
     font-weight: 700;
     letter-spacing: 0.2rem;
@@ -175,13 +170,14 @@
     font-family: "Lato", sans-serif;
     font-size: 1.3rem;
     line-height: 1.6;
+    text-align: left;
     width: 80%;
     margin: 2rem auto;
   }
 
   &-score {
     text-transform: uppercase;
-    text-align: center;
+    letter-spacing: 0.2rem;
   }
 
   &-button {
@@ -279,7 +275,6 @@
     &-count,
     &-score {
       width: 100%;
-      flex-basis: 100%;
     }
 
     &-name {

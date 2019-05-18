@@ -20,7 +20,7 @@
           <p class="header-about-text">Welcome to WAR, General!</p>
           <p class="header-about-text">What name should your troops address you as?</p>
 
-          <form id="header-about-form" class="header-about-form">
+          <form class="header-about-form">
             <label for="header-about-form-input-name" class="visuallyHidden">Name:</label>
             <input type="text" placeholder="NAME" id="header-about-form-input-name" class="header-about-form-input-name">
             <label for="header-about-form-submit" class="visuallyHidden">Submit</label>
@@ -57,7 +57,7 @@
           <!-- war instructions fun normally displayed -->
           <div class="instructions-text">
             <div class="instructions-text-fun">
-              <p>General <span id="instructions-player-name"></span>, we're under attack by <span id="instructions-computer-name" class="computer-name"></span> and their forces from Beyclic Scard! You'll have to fight against their army of cards. You will be sending our forces into battle turn after turn and whoever is mightier will win. In the event of a stalemate you'll have to send two waves of reinforcements and follow it up by a single winner take all showdown.  If you do enough damage to the forces from Beyclic Scard we will be victorious!</p>
+              <p>General <span class="instructions-player-name"></span>, we're under attack by <span class="instructions-computer-name"></span> and their forces from Beyclic Scard! You'll have to fight against their army of cards. You will be sending our forces into battle turn after turn and whoever is mightier will win. In the event of a stalemate you'll have to send two waves of reinforcements and follow it up by a single winner take all showdown.  If you do enough damage to the forces from Beyclic Scard we will be victorious!</p>
               <br>
               <p>Good luck, General. We're counting on you...</p>
             </div>
@@ -88,38 +88,40 @@
         <!-- computer info area -->
         <div class="play-computer-area">
           <div class="play-computer-area-info">
-            <p class="play-computer-area-info-count">Forces Remaining: <span id="play-computer-area-info-count"></span></p>
-            <h2 id="play-computer-name" class="play-computer-area-info-name"></h2>
+            <p class="play-computer-area-info-count">Forces Remaining: <span class="play-computer-area-info-count-output"></span></p>
+            <h2 class="play-computer-name play-computer-area-info-name"></h2>
             <span class="play-computer-area-info-empty"></span>
           </div>
 
           <!-- computer card -->
-          <div class="play-computer-area-card card-flip">
+          <div class="card-flip">
             <div class="card-flip-container card-flip-reverse">
               <div class="card-flip-front">
-                <img src="./assets/card-red.png" alt="card face down">
+                <img src="./assets/card-red.png" alt="red card face down">
               </div>
+              <!-- empty div that an image is dynamically injected into -->
               <div class="card-flip-back computer-card"></div>
             </div>
           </div>
           <!-- computer card ends -->
         </div><!-- computer area info ends -->
 
+        <!-- win, lose, war message overlay -->
         <p class="play-battle-message-text"></p>
 
         <!-- player area -->
         <div class="play-player-area"> 
           
           <!-- player card -->
-          <div class="play-player-area-card card-flip">
+          <div class="card-flip">
             <div class="card-flip-container card-flip-forward">
               <div class="card-flip-front">
-                <img src="./assets/card-blue.png" alt="card face down">
+                <img src="./assets/card-blue.png" alt="blue card face down">
               </div>
+              <!-- empty div that an image is dynamically injected into -->
               <div class="card-flip-back player-card"></div>
             </div>
-          </div>
-          <!-- player card ends -->
+          </div><!-- player card ends -->
           
           <!-- player controls & info -->
           <div class="play-player-area-controls">
@@ -131,9 +133,9 @@
             
             <!-- player info -->
             <div class="play-player-area-controls-info">
-              <p class="play-player-area-controls-info-score">Score: <span id="play-player-area-info-score">000000</span></p> 
-              <h2 class="play-player-area-controls-info-name" id="play-player-name"></h2>
-              <p class="play-player-area-controls-info-count">Forces Remaining: <span id="play-player-area-info-count"></span></p>
+              <p class="play-player-area-controls-info-score">Score: <span class="play-player-area-controls-info-score-output">000000</span></p> 
+              <h2 class="play-player-area-controls-info-name"></h2>
+              <p class="play-player-area-controls-info-count">Forces Remaining: <span class="play-player-area-controls-info-count-output"></span></p>
             </div>
           </div><!-- player controls & info -->
         </div><!-- player area ends -->
@@ -141,9 +143,9 @@
         <!-- game outcome modal -->
         <div class="play-modal" id="play-modal">
           <div class="play-modal-text container">
-            <h2 id="play-modal-title" class="play-modal-title"></h2>
-            <p id="play-modal-message" class="play-modal-message"></p>
-            <p class="play-modal-score">score: <span id="play-modal-score">000000</span></p>
+            <h2 class="play-modal-title"></h2>
+            <p class="play-modal-message"></p>
+            <p class="play-modal-score">score: <span class="play-modal-score-output">000000</span></p>
             <button class="play-modal-button button">Play Again</button>
           </div>
         </div><!-- modals ends -->
