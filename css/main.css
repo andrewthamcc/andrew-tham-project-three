@@ -151,15 +151,6 @@ legend, button::-moz-focus-inner, input::-moz-focus-inner {
   padding: 0;
 }
 
-.clearfix:after {
-  visibility: hidden;
-  display: block;
-  font-size: 0;
-  content: '';
-  clear: both;
-  height: 0;
-}
-
 * {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
@@ -308,7 +299,7 @@ img {
 
 .header-skip-arrow {
   display: none;
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
 }
 
 .header-modal {
@@ -384,6 +375,13 @@ img {
   .header-modal-text {
     width: 90%;
     font-size: 1.5rem;
+  }
+}
+
+@media (max-height: 535px) {
+  .header {
+    height: 100%;
+    padding-bottom: 3rem;
   }
 }
 
@@ -662,7 +660,6 @@ img {
 .play-modal-title {
   text-transform: uppercase;
   font-size: 5rem;
-  font-weight: 700;
   letter-spacing: 0.2rem;
 }
 

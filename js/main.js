@@ -17,8 +17,8 @@ const warApp = {
     // an array of possible computer names that the player will face at random
     possibleNames: ['Gen. Harry Hearts', 'Col. Amy Aces', 'Adm. Denise Diamonds', 'Maj. Steven Spades'],
     possiblePhrases: {
-      win: [`Muahahahaha`, `Feel my wrath`, `You don't stand a chance`, `The end is near`, `Aren't you scared?`, `That must hurt`, `You should quit`],
-      lose: [`I'll be back`, `Stronger than I thought`, `Dumb luck`, `I'll never give up`, `You call that a win?`, `You'll regret that`, `It's not over`]}
+      win: [`Muahahahaha`, `Feel my wrath`, `You don't stand a chance`, `The end is near`, `Aren't you scared?`, `That must hurt`, `You should quit`, `Weakling`],
+      lose: [`I'll be back`, `You're stronger than I thought`, `Dumb luck`, `I'll never give up`, `You call that a win?`, `You'll regret that`, `It's not over`, `You won't do that again`]}
   }
 };
 
@@ -65,7 +65,7 @@ warApp.init = () => {
 warApp.windowScroll = () => {
   // if the user refreshes the page mid game it does not lock the user to the screen unless at the top
   if (window.pageYOffset === 0) {
-    $('body').css('overflow', 'hidden');
+    // $('body').css('overflow', 'hidden');
   }
 }
 
