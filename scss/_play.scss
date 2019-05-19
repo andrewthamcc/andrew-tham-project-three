@@ -2,6 +2,8 @@
 .play {
   background-color: $primary-color;
   color: #ffffff;
+
+  // relative for modal
   position: relative;
 
   font-family: "Black Ops One", sans-serif;
@@ -23,11 +25,12 @@
   }
 
   // computer display info
-  &-computer-area-info {
+  &-computer-area-info,
+  &-player-area-controls-info {
     display: flex;
     justify-content: center;
-    margin-bottom: 1rem;
 
+    &-score,
     &-count,
     &-name,
     &-message {
@@ -40,43 +43,32 @@
     }
   }
 
+  &-computer-area-info {
+    margin-bottom: 1rem;
+  }
+
   // player buttons
   &-player-area-controls-buttons {
     margin: 1rem;
 
     // buttons gray out when disabled during gameplay
-    &-battle,
-    &-ceasefire {
-      &.disabled {
-        background-color: #373737;
-        color: #777777;
-      }
+    &-battle.disabled,
+    &-ceasefire.disabled {
+      background-color: #373737;
+      color: #777777;
     }
   }
 
   // player info
   &-player-area-controls-info {
-    display: flex;
-    justify-content: center;
     align-items: flex-end;
 
     padding-top: 0.5rem 0;  
-    
-    &-score,
-    &-name,
-    &-count {
-      width: calc(100% / 3);
-    }
-
-    &-name {
-      font-size: 1.8rem;
-      text-shadow: 2px 2px #000000;
-    }
   }
 
   // player/computer text styling
   &-computer-area-info-count,
-   &-computer-area-info-name,
+  &-computer-area-info-name,
   &-player-area-controls-info-score,
   &-player-area-controls-info-count,
   &-player-area-controls-info-name {
@@ -186,21 +178,11 @@
 }
 
 @media (max-width: 1310px) {
-  .play-computer-area-info{
-    &-count,
-    &-message {
-      width: 25%;
-      font-size: 1rem;
-    }
-
-    &-name {
-      width: 50%;
-    }
-  }
-
+  .play-computer-area-info, 
   .play-player-area-controls-info {
-    &-score,
-    &-count {
+    &-count,
+    &-message,
+    &-score {
       width: 25%;
       font-size: 1rem;
     }
@@ -251,24 +233,6 @@
   }
 
   .play-computer-area-info {
-    flex-direction: column;
-
-    &-name,
-    &-count,
-    &-message {
-      width: 100%;
-    }
-
-    &-name {
-      order: -1;
-    }
-
-    &-message {
-      display: none;
-    }
-  }
-
-  .play-player-area-controls-info {
     flex-direction: column;
 
     &-name,

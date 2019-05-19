@@ -13,9 +13,12 @@ const warApp = {
     score: 0,
   },
 
+  // computer information
   computer: {
-    // an array of possible computer names that the player will face at random
+    // array of possible computer names
     possibleNames: ['Gen. Harry Hearts', 'Col. Amy Aces', 'Adm. Denise Diamonds', 'Maj. Steven Spades'],
+
+    // array of possible computer taunts
     possiblePhrases: {
       win: [`Muahahahaha`, `Feel my wrath`, `You don't stand a chance`, `The end is near`, `Aren't you scared?`, `That must hurt`, `You should quit`, `Weakling`],
       lose: [`I'll be back`, `You're stronger than I thought`, `Dumb luck`, `I'll never give up`, `You call that a win?`, `You'll regret that`, `It's not over`, `You won't do that again`]}
@@ -24,7 +27,7 @@ const warApp = {
 
 // init function for app
 warApp.init = () => {
-  // cahce of jquery selectors that can be called more than once
+  // cache of jquery selectors that are to be called more than once
   // header inputs and modal
   warApp.nameInput = $('#header-about-form-input-name');
   warApp.nameSubmit = $('.header-about-form');
@@ -48,9 +51,13 @@ warApp.init = () => {
   warApp.cardReverseImage = $('.card-flip-reverse');
   warApp.cardForwardImage = $('.card-flip-forward');
 
+  // playing field
   warApp.battleMessage = $('.play-battle-message-text');
   warApp.computerMessageOutput = $('.play-computer-area-info-message');
   warApp.playingField = $('.play');
+
+  // konami modal
+  warApp.konamiModal = $('.footer-konami');
   
   warApp.windowScroll();
   warApp.playerName();
@@ -59,19 +66,20 @@ warApp.init = () => {
   warApp.playCard();
   warApp.ceasefire();
   warApp.playAgain();
+  warApp.konamiCode();
 }
 
 // prevents the user from scrolling until their name is filled out
 warApp.windowScroll = () => {
   // if the user refreshes the page mid game it does not lock the user to the screen unless at the top
   if (window.pageYOffset === 0) {
-    // $('body').css('overflow', 'hidden');
+    $('body').css('overflow', 'hidden');
   }
 }
 
 // gets player name from input field
 warApp.playerName = () => {
-  warApp.nameSubmit.on('submit', function(e){
+  warApp.nameSubmit.on('submit', (e) => {
     warApp.player.name = warApp.nameInput.val();
 
     // RegEx for validating name entry
@@ -80,7 +88,8 @@ warApp.playerName = () => {
     // test for valid user name
     if (re.test(warApp.player.name)){
       // update the UI
-      $('.instructions-player-name').html(warApp.player.name);
+      // template literal used for instructions to add the space instead of in the HTML.  If the user refreshes the page without entering the name the space won't be visible in the HTML and will just say "General,...".
+      $('.instructions-player-name').html(` ${warApp.player.name}`);
       $('.play-player-area-controls-info-name').html(warApp.player.name);
 
       // gets a random computer name
@@ -101,7 +110,7 @@ warApp.playerName = () => {
       warApp.headerModal.fadeIn();
 
       // click to close
-      $('.header-modal-button').on('click', function(){
+      $('.header-modal-button').on('click', () => {
         warApp.headerModal.fadeOut()
       });
     }
@@ -112,24 +121,23 @@ warApp.playerName = () => {
 
 // toggles the rules and button text
 warApp.toggleRules = () => {
-  warApp.instructionsButton.on('click', function(e){
+  warApp.instructionsButton.on('click', (e) => {
     
     // toggle hiding and showing the instructions
     warApp.instructionsFun = $('.instructions-text-fun').toggleClass('instructions-hide');
     warApp.instructionsPlain = $('.instructions-text-plain').toggleClass('instructions-show');
 
     // change the text within the button
-    $(this).text(function (index, current) {
-      return (current === 'Standard Rules') ? 'Fun Rules' : 'Standard Rules';
-    })
+    (e.target.innerHTML === 'Standard Rules') ? e.target.innerHTML = 'Fun Rules' : e.target.innerHTML = 'Standard Rules';
   });
 };
 
 // build the deck from the cards in order by looping through each array and matchig up items
+// reached stretch goal of calling Deck of Cards API but not included due to the API crashing the previous week. Code included in a seperate unlinked JS file - stretch.js
 // https://www.thatsoftwaredude.com/content/6196/coding-a-card-deck-in-javascript
 warApp.buildDeck = () => {
   warApp.deckSuits.forEach((suit) => {
-    warApp.deckValues.forEach((value) =>{
+    warApp.deckValues.forEach((value) => {
       // each card is an object with an associated suit, value and image
       card =  {
         suit: suit,
@@ -294,7 +302,7 @@ warApp.battle = () => {
   
   } else if (playerBattleValue === computerBattleValue) {
     // change the background of the playing field
-    setTimeout(() =>{
+    setTimeout(() => {
       warApp.playingField.css('background', `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('./assets/camo.jpg')`);
     }, 2800);
 
@@ -346,7 +354,7 @@ warApp.playerScore = () => {
   warApp.scoreOutput.html(warApp.playerScoreString);
 };
 
-// determine if the player or computer has won
+// determine if the player or computer has won and passes message to winning modal
 warApp.determineWin = () => {
   if (warApp.playerCardCount >= 36) {
     warApp.gameMessage = `General, you have defeated the enemy forces. This is the best thing in life. To be able to crush your enemies, see them driven before you, and to hear the lamentation of the weak! We will rule the enemy nation with an iron fist and wipe out all others that oppose us.`
@@ -360,7 +368,7 @@ warApp.determineWin = () => {
   };
 };
 
-// modal appears when game ends
+// modal appears when game ends with message
 warApp.gameModal = (title) => {
   $('.play-modal').fadeIn();
 
@@ -375,15 +383,16 @@ warApp.gameModal = (title) => {
 
 };
 
+// play again button that reloads the window object
 warApp.playAgain = () => {
-  $('.play-modal-button').on('click', function(){
+  $('.play-modal-button').on('click', () => {
     window.location.reload(true);
   });
 }
 
 // calls for ceasefire
 warApp.ceasefire = () => {
-  warApp.ceasefireButton.on('click', function (e) {
+  warApp.ceasefireButton.on('click', (e) => {
     warApp.gameMessage = `General, you've called a ceasefire and made peace. Our two nations will work together to rebuild and attempt to prevent the atrocitiy of war from happening again. Your brilliant negotation and steadfast resolution to peace will usher forth an englightment in the world.  As you know, there are truly no winners of war.`
     
     warApp.gameModal('CEASEFIRE');
@@ -391,6 +400,58 @@ warApp.ceasefire = () => {
     e.preventDefault();
   });
 };
+
+// https://stackoverflow.com/questions/31626852/how-to-add-konami-code-in-a-website-based-on-html
+warApp.konamiCode = () => {
+  // a key map of allowed keys
+  const allowedKeys = {
+    37: 'left',
+    38: 'up',
+    39: 'right',
+    40: 'down',
+    65: 'a',
+    66: 'b'
+  };
+
+  // the 'official' Konami Code sequence
+  const konamiCode = ['up', 'up', 'down', 'down', 'left', 'right', 'left', 'right', 'b', 'a'];
+
+  // a variable to remember the 'position' the user has reached so far.
+  let konamiCodePosition = 0;
+
+  // add keydown event listener
+  document.addEventListener('keydown', function (e) {
+    // get the value of the key code from the key map
+    let key = allowedKeys[e.keyCode];
+    // get the value of the required key from the konami code
+    let requiredKey = konamiCode[konamiCodePosition];
+
+    // compare the key with the required key
+    if (key == requiredKey) {
+      // move to the next key in the konami code sequence
+      konamiCodePosition++;
+      // if the last key is reached, activate cheats
+      if (konamiCodePosition == konamiCode.length) {
+        warApp.runKonami();
+        konamiCodePosition = 0;
+      }
+    } else {
+      konamiCodePosition = 0;
+    }
+  });
+}
+
+// konami function
+warApp.runKonami = () => {
+  // show modal
+  warApp.konamiModal.fadeIn();
+  
+  // close button 
+  // there is a bug that the video will keep playing if it was already started but this is likely can't be controlled
+  $('.footer-konami-close').on('click', () => {
+    warApp.konamiModal.fadeOut();
+  });
+}
 
 // document ready
 $(function () {

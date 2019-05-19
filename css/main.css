@@ -522,23 +522,26 @@ img {
   padding: 1rem 0;
 }
 
-.play-computer-area-info {
+.play-computer-area-info, .play-player-area-controls-info {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin-bottom: 1rem;
 }
 
-.play-computer-area-info-count, .play-computer-area-info-name, .play-computer-area-info-message {
+.play-computer-area-info-score, .play-computer-area-info-count, .play-computer-area-info-name, .play-computer-area-info-message, .play-player-area-controls-info-score, .play-player-area-controls-info-count, .play-player-area-controls-info-name, .play-player-area-controls-info-message {
   width: calc(100% / 3);
 }
 
-.play-computer-area-info-name {
+.play-computer-area-info-name, .play-player-area-controls-info-name {
   font-size: 1.8rem;
   text-shadow: 2px 2px #000000;
+}
+
+.play-computer-area-info {
+  margin-bottom: 1rem;
 }
 
 .play-player-area-controls-buttons {
@@ -551,25 +554,10 @@ img {
 }
 
 .play-player-area-controls-info {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
   padding-top: 0.5rem 0;
-}
-
-.play-player-area-controls-info-score, .play-player-area-controls-info-name, .play-player-area-controls-info-count {
-  width: calc(100% / 3);
-}
-
-.play-player-area-controls-info-name {
-  font-size: 1.8rem;
-  text-shadow: 2px 2px #000000;
 }
 
 .play-computer-area-info-count, .play-computer-area-info-name, .play-player-area-controls-info-score, .play-player-area-controls-info-count, .play-player-area-controls-info-name {
@@ -683,17 +671,14 @@ img {
 }
 
 @media (max-width: 1310px) {
-  .play-computer-area-info-count, .play-computer-area-info-message {
+  .play-computer-area-info-count, .play-computer-area-info-message, .play-computer-area-info-score,
+  .play-player-area-controls-info-count,
+  .play-player-area-controls-info-message,
+  .play-player-area-controls-info-score {
     width: 25%;
     font-size: 1rem;
   }
-  .play-computer-area-info-name {
-    width: 50%;
-  }
-  .play-player-area-controls-info-score, .play-player-area-controls-info-count {
-    width: 25%;
-    font-size: 1rem;
-  }
+  .play-computer-area-info-name,
   .play-player-area-controls-info-name {
     width: 50%;
   }
@@ -738,7 +723,7 @@ img {
         -ms-flex-direction: column;
             flex-direction: column;
   }
-  .play-computer-area-info-name, .play-computer-area-info-count, .play-computer-area-info-message {
+  .play-computer-area-info-name, .play-computer-area-info-count, .play-computer-area-info-score {
     width: 100%;
   }
   .play-computer-area-info-name {
@@ -747,23 +732,6 @@ img {
             order: -1;
   }
   .play-computer-area-info-message {
-    display: none;
-  }
-  .play-player-area-controls-info {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-  }
-  .play-player-area-controls-info-name, .play-player-area-controls-info-count, .play-player-area-controls-info-score {
-    width: 100%;
-  }
-  .play-player-area-controls-info-name {
-    -webkit-box-ordinal-group: 0;
-        -ms-flex-order: -1;
-            order: -1;
-  }
-  .play-player-area-controls-info-message {
     display: none;
   }
   .play-player-area-controls-buttons button {
@@ -812,5 +780,31 @@ img {
   font-size: 1rem;
   letter-spacing: undefined;
   color: #070707;
+}
+
+.footer-konami {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.footer-konami-video {
+  width: 80%;
+  height: 100%;
+  margin: 10% auto;
+  background-color: #070707;
+  border-radius: 2rem;
+  margin: 2% auto;
+  padding: 1rem 0;
+}
+
+.footer-konami-video iframe {
+  display: block;
+  margin: 2rem auto;
 }
 /*# sourceMappingURL=main.css.map */

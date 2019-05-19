@@ -7,7 +7,7 @@
   <title>andrew-tham-project-3 WAR</title>
   <link rel="shortcut icon" href="./assets/favicon.png" type="image/x-icon" />
   <link href="https://fonts.googleapis.com/css?family=Black+Ops+One|Lato:400,700" rel="stylesheet">
-  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
   <!-- header -->
@@ -57,7 +57,7 @@
           <!-- war instructions fun normally displayed -->
           <div class="instructions-text">
             <div class="instructions-text-fun">
-              <p>General <span class="instructions-player-name"></span>, we're under attack by <span class="instructions-computer-name"></span> and their forces from Beyclic Scard! You'll have to fight against their army of cards. You will be sending our forces into battle turn after turn and whoever is mightier will win. In the event of a stalemate you'll have to send two waves of reinforcements and follow it up by a single winner take all showdown.  If you do enough damage to the forces from Beyclic Scard we will be victorious!</p>
+              <p>General<span class="instructions-player-name"></span>, we're under attack by <span class="instructions-computer-name"></span> and their forces from Beyclic Scard! You'll have to fight against their army of cards. You will be sending our forces into battle turn after turn and whoever is mightier will win. In the event of a stalemate you'll have to send two waves of reinforcements and follow it up by a single winner take all showdown.  If you do enough damage to the forces from Beyclic Scard we will be victorious!</p>
               <br>
               <p>Good luck, General. We're counting on you...</p>
             </div>
@@ -156,12 +156,24 @@
 
   <!-- footer -->
   <footer class="footer">
-    <p class="footer-copyright">&copy; 2019 Andrew Tham</p>
+    <div class="container">
+      <p class="footer-copyright">&copy; 2019 Andrew Tham</p>
+    </div>
+
+    <!-- komani code modal -->
+    <div class="footer-konami">
+      <div class="container">
+        <div class="footer-konami-video">
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/w8leCzrO9_U?start=36" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <button class="footer-konami-close button">close</button>
+        </div>
+      </div>
+    </div>
   </footer>
 
   <!-- scripts -->
   <script src='https://code.jquery.com/jquery-3.2.1.min.js' integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4='crossorigin='anonymous'></script>
-  <!-- https://github.com/alicelieutier/smoothScroll -->
+  <!-- smoothscroll from https://github.com/alicelieutier/smoothScroll -->
   <script src="./js/smoothscroll.min.js"></script>
   <script src="./js/main.js"></script>
 </body>

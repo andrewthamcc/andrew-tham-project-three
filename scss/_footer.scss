@@ -4,3 +4,30 @@
   background-color: #ffffff;
   @include blackops(1rem, $secondary-color, undefined);
 }
+
+// konami modal
+.footer-konami {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0,0,0,0.8);
+
+  &-video {
+    width: 80%;
+    height: 100%;
+    margin: 10% auto;
+    background-color: $secondary-color;
+    border-radius: 2rem;
+    margin: 2% auto;
+    padding: 1rem 0;
+  
+    iframe {
+      display: block;
+      margin: 2rem auto;
+    }
+  }
+}
