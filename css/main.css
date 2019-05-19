@@ -717,21 +717,27 @@ img {
   .play-player-area-controls-info-score {
     font-size: 0.8rem;
   }
-  .play-computer-area-info {
+  .play-computer-area-info,
+  .play-player-area-controls-info {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
   }
-  .play-computer-area-info-name, .play-computer-area-info-count, .play-computer-area-info-score {
+  .play-computer-area-info-name, .play-computer-area-info-count, .play-computer-area-info-score,
+  .play-player-area-controls-info-name,
+  .play-player-area-controls-info-count,
+  .play-player-area-controls-info-score {
     width: 100%;
   }
-  .play-computer-area-info-name {
+  .play-computer-area-info-name,
+  .play-player-area-controls-info-name {
     -webkit-box-ordinal-group: 0;
         -ms-flex-order: -1;
             order: -1;
   }
-  .play-computer-area-info-message {
+  .play-computer-area-info-message,
+  .play-player-area-controls-info-message {
     display: none;
   }
   .play-player-area-controls-buttons button {

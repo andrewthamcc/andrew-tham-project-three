@@ -232,7 +232,8 @@
     }
   }
 
-  .play-computer-area-info {
+  .play-computer-area-info,
+  .play-player-area-controls-info {
     flex-direction: column;
 
     &-name,
