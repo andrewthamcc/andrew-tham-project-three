@@ -16,7 +16,7 @@ const warApp = {
   // computer information
   computer: {
     // array of possible computer names
-    possibleNames: ['Gen. Harry Hearts', 'Col. Amy Aces', 'Adm. Denise Diamonds', 'Maj. Steven Spades'],
+    possibleNames: ['Gen. Harry Hearts', 'Col. Cora Clubs', 'Adm. Denise Diamonds', 'Maj. Steven Spades'],
 
     // array of possible computer taunts
     possiblePhrases: {
@@ -392,12 +392,10 @@ warApp.playAgain = () => {
 
 // calls for ceasefire
 warApp.ceasefire = () => {
-  warApp.ceasefireButton.on('click', (e) => {
+  warApp.ceasefireButton.on('click', () => {
     warApp.gameMessage = `General, you've called a ceasefire and made peace. Our two nations will work together to rebuild and attempt to prevent the atrocitiy of war from happening again. Your brilliant negotation and steadfast resolution to peace will usher forth an englightment in the world.  As you know, there are truly no winners of war.`
     
     warApp.gameModal('CEASEFIRE');
-
-    e.preventDefault();
   });
 };
 
