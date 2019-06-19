@@ -67,6 +67,20 @@ warApp.init = () => {
   warApp.ceasefire();
   warApp.playAgain();
   warApp.konamiCode();
+
+  // skip arrow
+  $('.header-skip-arrow').on('click', function(){
+    document.querySelector('#instructions').scrollIntoView({
+      behavior: 'smooth'
+    });
+  })
+
+  // instructions skip arrow
+  $('.instructions-skip').on('click', function(){
+    document.querySelector('#play').scrollIntoView({
+      behavior: 'smooth'
+    });
+  })
 }
 
 // prevents the user from scrolling until their name is filled out
